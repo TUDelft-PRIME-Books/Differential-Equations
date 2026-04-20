@@ -501,13 +501,240 @@ $$
 
 ::::::
 
-:::{todo}
-In deze subsectie nog:
-- Differentieren en vermenigvuldigen met $t$
-- Gaussian
-- Iets met partial fraction decomposition
+An important property of the Fourier transform, is that we can relate the Fourier transforms of a function and of its derivative.
 
-Daarna nog
+
+::::::{prf:theorem} Differentiation
+:label: Thm:Fouriertr:Diff
+For a function $f(t)$ whose Fourier transform exists and which has $\lim\limits_{t\rightarrow\pm\infty}f(t)=0$, the Fourier transform of $f'$ also exists and we have
+
+$$
+ {\mathcal F}\left\{f'(t)\right\}(\omega)=i\omega \hat{f}(\omega).
+$$
+
+::::::
+
+:::{admonition} Proof of {prf:ref}`Thm:Fouriertr:Diff`
+:class: tudproof, dropdown
+Using integration by parts, we find
+
+$$
+ {\mathcal F}\left\{f'(t)\right\}(\omega)=\int_{-\infty}^\infty f'(t)e^{-it\omega}\,dt=\left[f(t)e^{-it\omega}\right]_{t=-\infty}^\infty-\int_{-\infty}^\infty (-i\omega)f'(t)e^{-it\omega}\,dt.
+$$
+
+We observe that $\displaystyle \lim_{t\rightarrow\pm\infty}f(t)e^{it\omega}=0$, since $\displaystyle \lim_{t\rightarrow\pm\infty}f(t)=0$ and $\left|e^{it\omega}\right|=1$. Hence, we obtain
+
+
+$$
+ {\mathcal F}\left\{f'(t)\right\}(\omega)=\left[f(t)e^{-it\omega}\right]_{t=-\infty}^\infty-\int_{-\infty}^\infty (-i\omega)f'(t)e^{-it\omega}\,dt=0+i\omega \int_{-\infty}^\infty f'(t)e^{-it\omega}\,dt=i\omega \hat{f}(\omega).
+$$
+:::
+
+This means that the sometimes rather complicated operation of differentiation is nothing more than a mere multiplication on the Fourier side. Reversely, differentiation on the Fourier side of things should also give a multiplication in the time domain on account of duality. Indeed, we obtain the followin result.
+
+::::::{prf:theorem} Multiplication by $t$
+:label: Thm:Fouriertr:Multt
+For a function $f(t)$ for which the Fourier transform of $tf(t)$ exists, the Fourier transform $\hat{f}(\omega)$ is differentiable and we have
+
+$$
+ i\dfrac{d}{d\omega}\hat{f}(\omega)=\mathcal{F}\left\{tf(t)\right\}(\omega).
+$$
+::::::
+
+:::{admonition} Proof of {prf:ref}`Thm:Fouriertr:Multt`
+:class: tudproof, dropdown
+For any $\omega$, we have
+
+$$
+ \hat{f}(\omega)=\int_{-\infty}^\infty f(t)e^{-i\omega t}\,dt.
+$$
+
+Then we differentiate both sides of the equation with respect to $\omega$ to obtain
+
+$$
+ \frac{d}{d\omega}\hat{f}(\omega)=\frac{d}{d\omega}\left[\int_{-\infty}^\infty f(t)e^{-i\omega t}\,dt\right].
+$$
+
+Using the [Leibniz integral rule](https://en.wikipedia.org/wiki/Leibniz_integral_rule), we can take the derivative inside the integral to obtain
+
+$$
+ \frac{d}{d\omega}\hat{f}(\omega)=\int_{-\infty}^\infty \frac{d}{d\omega}\left[f(t)e^{-i\omega t}\right]\,dt=\int_{-\infty}^\infty (-it)f(t)e^{-i\omega t}\,dt.
+$$
+
+Upon taking the $-i$ to the other side of the equation and using that $\dfrac{1}{-i}=i, we obtain
+
+$$
+ i\frac{d}{d\omega}\hat{f}(\omega)=\int_{-\infty}^\infty tf(t)e^{-i\omega t}\,dt=\mathcal{F}\left\{tf(t)\right\}(\omega),
+$$
+
+as desired.
+:::
+
+::::::{prf:example} Differentiation
+:label: Ex:Fouriertr:Differentiation
+Consider the function 
+
+$$
+ f(t)=\frac{t}{(1+t^2)^2}.
+$$
+
+This function is related to the function $h$ from {prf:ref}`Ex:Fouriertr:Duality`, since we have
+
+$$
+ h'(t)=-\frac{2t}{(1+t^2)^2}=-2f(t).
+$$
+
+So on account of {prf:ref}`Thm:Fouriertr:Diff`, we obtain
+
+$$
+ \hat{f}(\omega)=-\frac{1}{2}i\omega\hat{h}(\omega)=-\frac{1}{2}i\omega\pi e^{-|\omega|}.
+$$ 
+::::::
+
+{prf:ref}`Thm:Fouriertr:Multt` can be used to find one of the most important Fourier transforms, namely the one of Gaussian functions. 
+
+::::::{prf:example} Gaussian
+:label: Ex:Fouriertr:Gaussian
+A **Gaussian function** is a function of the form 
+
+$$
+ f(x)=a\exp\left(-\frac{(x-b)^2}{2c^2}\right).
+$$
+
+It is named after the German mathematician [Carl Friedrich Gauss (1777-1855)](https://en.wikipedia.org/wiki/Carl_Friedrich_Gauss). Its graph has a characteristic shape, called the "bell curve". These functions play a very important role in probability and statistics, as they can be used to describe random variables with a normal distribution.
+
+For simplicity, we here consider the Gaussian
+
+$$
+ f(t)=e^{-at^2}
+$$
+
+for some constant $a$. Then we have
+
+$$
+ \hat{f}(\omega)=\int_{-\infty}^\infty e^{-t^2}e^{-i\omega t}\,dt.
+$$
+
+According to {prf:ref}`Thm:Fouriertr:Multt`, we have
+
+$$
+ \frac{d}{d\omega}\hat{f}(\omega)=\frac{1}{i}\int_{-\infty}^\infty te^{-at^2}e^{-i\omega t}\,dt.
+$$
+
+Using integration by parts, we find
+
+$$
+ \frac{d}{d\omega}\hat{f}(\omega)=\left[-\frac{1}{2a}e^{-at^2}e^{-i\omega t}\right]_{t=-\infty}^\infty-\frac{\omega}{2a}\int_{-\infty}^\infty e^{-t^2}e^{-i\omega t}\,dt=0-\frac{\omega}{2a}\hat{f}(\omega)
+$$
+
+As such, the function $\hat{f}$ is a solution to the differential equation
+
+$$
+ y'(\omega)=-\frac{\omega}{2a}y(\omega).
+$$
+
+This is a linear, first order differential equation and (using an integrating factor), we obtain the solution
+
+$$
+ \hat{f}(\omega)=Ce^{-\frac{\omega^2}{4a}}
+$$
+
+for some (as of yet) unknown constant $C$. In order to find this $C$, we note that
+
+$$
+ C=\hat{f}(0)=\int_{-\infty}^\infty e^{-at^2}\,dt.
+$$
+
+This remaining intgral is a standard integral and we find that
+
+$$
+ C=\int_{-\infty}^\infty e^{-at^2}\,dt=\sqrt{\frac{\pi}{a}}.
+$$
+
+As such, we find that
+
+$$
+ \hat{f}(\omega)=\sqrt{\frac{\pi}{a}}e^{-\frac{\omega^2}{4a}}.
+$$
+
+This means that the Fourier transform of a Gaussian is again a Gaussian. 
+
+[^FootnoteUncertainty]: Heisenberg’s uncertainty principle, stating that you cannot know the location and speed of a particle at once, is related to this fact. If we are way too unspecific: In quantum mechanics there is a function $\psi$, called the wave function, indication the location of a particle, while the Fourier transform of $\psi$ gives its speed. The more concentrated this function in one peak the better you know its location, and similarly for $\mathcal{F}(\psi)$ and the speed. But the more spiked you make $\psi$ the more spread $\mathcal{F}(\psi)$ has to be and vice versa. So you can never be certain about both location and speed at the same time.
+
+
+Note that the graph of $f(t)=e^{-at^2}$ is very narrow/spiked when $a$ is very large, while it is rather flat if $a$ is rather flat. As we would expect from {prf:ref}`Thm:Fouriertr:Scaling`, this relation is inverted for the Fourier transform.[FootnoteUncertainty]
+
+:::{figure} Images/Fig-FourierTrs-Gaussian.png
+:name: Fig:FourierTrs:Exp
+
+The graph of two Gaussians and their Fourier transforms. The graph of the red function is more spread in the time domain, while it is narrower in the Fourier domain.
+:::
+
+::::::
+
+So far, we have computed a lot of Fourier transforms, but not a lot of inverse Fourier transforms. So as our final example of this subsection, we will evaluate an inverse Fourier transform.
+
+::::::{prf:example} Inverse Fourier transform
+:label: Ex:Fouriertr:PFD
+Suppose we want to try to find the inverse Fourier transform of 
+
+$$
+ \hat{g}(\omega)=\frac{1}{3+2i\omega+\omega^2}.
+$$
+
+The Fourier transform that most resembles this one is the one of the function $f(t)=e^{-t}u_0(t)$ from {prf:ref}`Ex:Fouriertr:Linscale`, which is given by
+
+$$
+ \mathcal{F}\left\{e^{-t}u_0(t)\right\}(\omega)=\dfrac{1}{1+i\omega}.
+$$
+
+In order to make connect the function $g$ to this known Fourier transform, we perform a partial fraction decomposition. For this we note that $3+2i\omega+\omega^2=(\omega-i)(\omega+3i)$, so we write
+
+$$
+ \hat{g}(\omega)=\frac{1}{3+2i\omega+\omega^2}=\frac{A}{\omega-i}+\frac{B}{\omega+3i}.
+$$
+
+Solving for $A$ and $B$, we find $A=\dfrac{-i}{4}$ and $B=\dfrac{i}{4}$, so we have
+
+$$
+ \hat{g}(\omega)=\dfrac{-i}{4}\frac{1}{\omega-i}+\dfrac{i}{4}\frac{1}{\omega+3i}.
+$$
+
+To let it more closely resemble $\dfrac{1}{1+i\omega}$, we write
+
+$$
+ \hat{g}(\omega)=\dfrac{-i}{4}\frac{\frac{i}{2}}{i\frac{\omega}{2}+1}+\dfrac{i}{4}\frac{\frac{i}{-3}}{i\frac{\omega}{-3}+1}=\frac{1}{4}\frac{1}{2}\frac{1}{i\frac{\omega}{2}+1}+\frac{1}{4}\frac{1}{3}\frac{1}{i\frac{\omega}{-3}+1}.
+$$
+
+Now we note that
+
+$$
+ \frac{1}{2}\frac{1}{i\frac{\omega}{2}+1}=\frac{1}{2}\hat{f}\left(\frac{\omega}{2}\right)
+$$
+
+and
+
+$$
+ \frac{1}{3}\frac{1}{i\frac{\omega}{-3}+1}=\frac{1}{|-3|}\hat{f}\left(\frac{\omega}{-3}\right).
+$$
+
+As such, we have
+
+$$
+ g(\omega)=\frac{1}{4}\frac{1}{2}\hat{f}\left(\frac{\omega}{2}\right)+\frac{1}{4}\frac{1}{|-3|}\hat{f}\left(\frac{\omega}{-3}\right).
+$$
+
+Hence, with use {prf:ref}`Thm:Fouriertr:Scaling` we obtain that the inverse Fourier transform $g$ of $\hat{g}$ is given by
+
+$$
+ g(t)=\frac{1}{4} f(2t)+\frac{1}{4}f(-3t)=\frac{1}{4}e^{-2t}u_0(2t)+\frac{1}{4}e^{3t}u_0(-3t)=\left\{\begin{array}{ll}\frac{1}{4}e^{3t},\quad &t<0;\\[0.4cm] \frac{1}{4}e^{-t},\quad&t\geq 0.\end{array}\right.
+$$
+
+::::::
+
+:::{todo}
+Er moet nog
+- Tabel met Fourier transforms
 - Delta functies
 - Convolutie
 - Parseval/Plancherel (naamgeving checken, ook in slides)
