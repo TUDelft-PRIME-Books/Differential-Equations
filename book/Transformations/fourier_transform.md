@@ -90,7 +90,7 @@ Let us now consider a few examples of functions of which we can evaluate the Fou
 
 ::::::{prf:example} Exponentially decaying function
 :label: Ex:Fouriertr:Exponential
-Let $a>0$ and consider the function 
+Let $a$ be a (possibly complex) number with $\mathrm{Re}(a)>0$ and consider the function 
 
 $$
  \displaystyle f(t)=e^{-at}u_0(t)=\left\{\begin{array}{ll}0&t<0,\\ e^{-at}&t\geq 0.\end{array}\right.
@@ -105,7 +105,7 @@ $$
 :::{figure} Images/Fig-FourierTrs-Exp.png
 :name: Fig:FourierTrs:Exp
 
-The graph of the function $f$.
+The graph of the function $f$ for some real $a>0$.
 :::
 
 Since the improper integral $\displaystyle \int_{-\infty}^\infty f(t)e^{-i\omega t}\,dt$ has two infinite limits, we should evaluate this improper integral by splitting it up. It is convenient to split it up in the part from $-\infty$ to $0$ and the part from $0$ to $\infty$, since the function $f$ behaves differently on these parts. We can evaluate the Fourier transform of $f$ directly from the definition and we obtain
@@ -732,13 +732,499 @@ $$
 
 ::::::
 
+As a final imporant property of the Fourier transform is that it conserves energy. This result is known as the **Plancherel theorem**, or sometimes as the **Parseval-Plancherel identity** or **Parseval's theorem** (though that one usually refers to a version of this result for *Fourier series*).  It is named after the Swiss mathematician [Michel Plancherel (1885-1967)](https://en.wikipedia.org/wiki/Michel_Plancherel), with the alternative names coming from the French mathematician [Marc-Antoine Parseval (1755-1836)](https://en.wikipedia.org/wiki/Marc-Antoine_Parseval).
+
+::::::{prf:theorem} Plancherel
+:label: Thm:Fouriertr:Plancherel
+Suppose $f:\mathbb{R}\rightarrow\mathbb{C}$ is a function of which the Fourier transform exists. Then we have
+
+$$
+ \int_{-\infty}^\infty |f(t)|^2\,dt=\frac{1}{2\pi}\int_{-\infty}^\infty |\hat{f}(\omega)|^2\,d\omega.
+$$
+
+::::::
+
+:::{admonition} Proof of {prf:ref}`Thm:Fouriertr:Plancherel`
+:class: tudproof, dropdown
+For any complex number $z$, we have $|z|^2=z\overline{z}$, where $\overline{z}$ is the complex conjugate of $z$. Using the definition of the Fourier transform and {prf:ref}`Thm:Fouriertr:InvFouriertr`, we then obtain
+
+\begin{align*}
+ \int_{-\infty}^\infty |f(t)|^2\,dt=&\int_{-\infty}^\infty f(t)\overline{f(t)}\,dt\\
+ =&\int_{-\infty}^\infty f(t)\frac{1}{2\pi}\int_{-\infty}^\infty\overline{hat{f}(\omega)e^{it\omega}}\,d\omega\,dt\\
+ =&\frac{1}{2\pi}\int_{-\infty}^\infty \int_{-\infty}^\infty f(t)\overline{hat{f}(\omega)}e^{-it\omega}\,d\omega\,dt\\
+ =&\frac{1}{2\pi}\int_{-\infty}^\infty \int_{-\infty}^\infty f(t)\overline{hat{f}(\omega)}e^{-it\omega}\,dt\,d\omega\\
+ =&\frac{1}{2\pi}\int_{-\infty}^\infty \int_{-\infty}^\infty f(t)e^{-it\omega}\,dt \overline{hat{f}(\omega)}\,d\omega\\
+ =&\frac{1}{2\pi}\int_{-\infty}^\infty \hat{f}(\omega) \overline{hat{f}(\omega)}\,d\omega\\
+ =&\frac{1}{2\pi}\int_{-\infty}^\infty |\hat{f}(\omega)|^2\,d\omega.
+\end{align*}
+
+:::
+
+The interpretation of {prf:ref}`Thm:Fouriertr:Plancherel` is as follows. If the function $f$ represents a wave, then the integral $\displaystyle \int_{-\infty}^\infty |f(t)|^2\,dt$ represents the total energy contained in the wave. The theorem then states that we can obtain this energy by adding up the energies of the waves of differing frequencies, which is represented by $\displaystyle \int_{-\infty}^\infty |\hat{f}(\omega)|^2\,d\omega$.
+
+Perhaps suprisingly, we can use this result to evaluate complicated improper integrals.
+
+::::::{prf:example} 
+:label: Ex:Fouriertr:Plancherel
+Suppose we want to evaluate the improper integral
+
+$$
+ \int_{-\infty}^\infty \frac{\sin(x)^2}{x^2}\,dx.
+$$
+
+Without using the Fourier transform, this integral is very hard to evaluate, since it has two infinite limits and, more importantly, there is no way to express the antiderivative of $\dfrac{\sin(x)^2}{x^2}$ in terms of elementary functions. Fortunately, we know from {prf:ref}`Ex:Fouriertr:Block` that the function $\hat{f}(\omega)=\dfrac{2\sin(\omega)}{\omega}$ is the Fourier transform of the block function $f(t)=u_{-1}(t)-u_1(t)$. Then we see that
+
+$$
+ \int_{-\infty}^\infty \frac{\sin(x)^2}{x^2}\,dx=\frac{1}{4}\int_{-\infty}^\infty \left(\frac{2\sin(x)}{x}\right)^2\,dx=\frac{1}{4}\int_{-\infty}^\infty \left|\hat{f}(x)\right|^2\,dx.
+$$
+
+On account of {prf:ref}`Thm:Fouriertr:Plancherel`, we can now, instead, evaluate the much easier integral
+
+\begin{align*}
+ \int_{-\infty}^\infty \frac{\sin(x)^2}{x^2}\,dx=&\frac{1}{4}\int_{-\infty}^\infty \left|\hat{f}(x)\right|^2\,dx\\
+ =&2\pi\frac{1}{4}\int_{-\infty}^\infty \left|f(t)\right|^2\,dt\\
+ =&\frac{\pi}{2}\int_{-\infty}^\infty\left(u_{-1}(t)-u_1(t)\right)^2\,dt\\
+ =&\frac{\pi}{2}\int_{-1}^1\left(1\right)^2\,dt\\
+ =&\frac{\pi}{2}\cdot 2\\
+ =&\pi.
+\end{align*}
+
+::::::
+
+As a consequence of {prf:ref}`Thm:Fouriertr:Plancherel`, we obtain that two different continuous functions can never have the same Fourier transform.
+
+::::::{prf:corollary} 
+:label: Cor:Fouriertr:Plancherel
+If $f$ and $g$ are continuous, and $\mathcal{F}(f)=\mathcal{F}(g)$, then we have $f=g$.
+
+::::::
+
+:::{admonition} Proof of {prf:ref}`Cor:Fouriertr:Plancherel`
+:class: tudproof, dropdown
+From the linearity of the Fourier transform, we have have
+
+$$
+ \mathcal{F}(f-g)=\mathcal{F}(f)-\mathcal{F}(g)=0.
+$$
+
+Then we obtain from {prf:ref}`Thm:Fouriertr:Plancherel` that
+
+$$
+ \int_{-\infty}^\infty|f(t)-g(t)|^2\,dt=\frac{1}{2\pi}\int_{-\infty}^\infty 0^2\,d\omega=0.
+$$
+
+Since $f$ and $g$ are continuous, we must have $f=g$, as desired.
+:::
+
+## Convolution and the Dirac delta
+
+Sometimes it is possible to write the Fourier transform of an unknown function as the product of the Fourier transforms of two known functions, i.e. we know that $\hat{f}=\hat{g}\hat{h}$ for some known functions $g$ and $h$, while $f$ is unknown. How can we take the inverse Fourier transform in such a setting? What does the unknown function $f$ have to do with the known functions $g$ and $h$? It turns out that $f$ is the so-called **convolution product** of $g$ and $h$, so let us define what we mean by that.
+
+::::::{prf:definition} 
+:label: Def:Fouriertr:Conv
+Given two functions $f:\mathbb{R}\rightarrow\mathbb{R}$ and $g:\mathbb{R}\rightarrow\mathbb{R}$, their **convolution product** $f\ast g$ is given by
+
+$$
+ (f\ast g)(t)=\int_{-\infty}^\infty f(\tau)g(t-\tau)\,d\tau.
+$$
+
+This convolution product is defined whenever the integral converges for all values of $t$.
+
+::::::
+
+As promised, the Fourier transform of the convolution product equals the product of the Fourier transforms, as the following theorem shows.
+
+::::::{prf:theorem} 
+:label: Thm:Fouriertr:Conv
+For functions $f(t)$ and $g(t)$ whose Fourier transform exist, we have that 
+
+$$
+ {\mathcal F}\left\{f\ast g\right\}(\omega)=\hat{f}(\omega)\hat{g}(\omega)
+$$
+
+and
+
+$$
+ 2\pi{\mathcal F}\left\{f(t)g(t)\right\}(\omega)=(\hat{f}\ast\hat{g})(\omega).
+$$
+
+::::::
+
+:::{admonition} Proof of {prf:ref}`Thm:Fouriertr:Conv`
+:class: tudproof, dropdown
+From the definition we obtain
+
+$$
+ \hat{f}(\omega)\hat{g}(\omega)=\int_{-\infty}^\infty f(\tau)e^{-i\tau\omega}\,d\tau\int_{-\infty}^\infty g(\sigma)e^{-i\sigma\omega}\,d\sigma.
+$$
+
+Here we used $\tau$ and $\sigma$ instead of the usual $t$ as variables in the integrals to distinguish them from each other. Then we can rewrite this product of two integrals as an iterated integral by writing
+
+$$
+ \hat{f}(\omega)\hat{g}(\omega)=\int_{-\infty}^\infty \int_{-\infty}^\infty f(\tau)g(\sigma)e^{-i\sigma\omega-i\tau\omega}\,d\tau\,d\sigma .
+$$
+
+Now we use the substitution $\sigma=t-\tau$ (to be clear, we replace $\sigma$ by $t-\tau$ and integrate over $t$ instead of over $\sigma$). Then we see that $t\rightarrow\pm\infty$ precisely when $\sigma\rightarrow\pm\infty$. In addition, we note that
+
+$$
+ e^{-i\sigma\omega-i\tau\omega}=e^{-i(t-\tau)\omega-i\tau\omega}=e^{-it\omega}.
+$$
+
+Hence, we obtain
+
+$$
+ \hat{f}(\omega)\hat{g}(\omega)=\int_{-\infty}^\infty \int_{-\infty}^\infty f(\tau)g(t-\tau)e^{-it\omega}\,d\tau\,dt=\int_{-\infty}^\infty (f\ast g)(t)e^{-it\omega}\,dt={\mathcal F}\left\{f\ast g\right\}(\omega).
+$$
+
+The other identity follows by combining the first one with {prf:ref}`Thm:Fouriertr:Duality`.
+:::
+
+:::{note}
+In the context of Laplace transforms, one usually considers the product of two functions $f:[0,\infty)\rightarrow\mathbb{R}$ and $g:[0,\infty)\rightarrow\mathbb{R}$ to be given by
+
+$$
+ (f\ast g)_{\mathrm{half}}(t)=\int_0^t f(t-\tau)g(\tau)\,d\tau=\int_0^t f(\tau)g(t-\tau)\,d\tau.
+$$
+
+We use the subscript $\mathrm{half}$ to distinguish between the two definitions of the convolution. While these definitions look different, they actually work very similar. Indeed, if we extend the functions $f$ and $g$ that are only defined on the halfline $[0,\infty)$ to the full real line by setting
+
+$$
+ f(t)=g(t)=0
+$$
+
+for $t<0$, then the convolution integral from {prf:ref}`Def:Fouriertr:Conv` becomes
+
+$$
+ (f\ast g)(t)=\int_{-\infty}^\infty f(\tau)g(t-\tau)\,d\tau=\int_0^t f(\tau)g(t-\tau)\,d\tau=(f\ast g)_{\mathrm{half}}(t),
+$$
+
+since $f(\tau)=0$ for $\tau\leq 0$ and $g(t-\tau)=0$ for $\tau\geq t$. 
+
+:::
+
+::::::{prf:example} 
+:label: Ex:Fouriertr:Conv
+Consider the functions
+
+$$
+ f(t)=u_{-1}(t)-u_1(t)
+$$
+
+and
+
+$$
+ g(t)=u_{-3}(t)-u_2(t).
+$$
+
+Our goal is to find the convolution product $f\ast g$. By definition, this is given by the integral
+
+$$
+ (f\ast g)(t)=\int_{-\infty}^\infty f(\tau)g(t-\tau)\,d\tau.
+$$
+
+The integrand of this integral (the function we are integrating) is either $1$, when both $f(\tau)=g(t-\tau)=1$, or $0$, if either $f(\tau)=0$ or $g(t-\tau)=0$. On which intervals the integrand is $0$ depends on the value of $t$. To establish where this is the case, it is useful to sketch $f(\tau)$, $g(t-\tau)$ and $f(\tau)g(t-\tau)$. The area below the latter graph is the desired convolution product. We start with the sketches when $t=0$, see {numref}`Fig:FourierTrs:Convt0`.
+
+:::{figure} Images/Fig-FourierTrs-Convt0.png
+:name: Fig:FourierTrs:Convt0
+
+The graph of the functions $f(\tau)$, $g(t-\tau)$ and $f(\tau)g(t-\tau)$ for $t=0$.
+:::
+
+If $t$ increases, the graph of $g(t-\tau)$ moves to the right, while if $t$ decreases it moves to the left. For very negative values of $t$, we have $t+3<-1$, so the regions where the graphs of $f(\tau)$ and $g(t-\tau)$ are nonzero do not overlap. As such, the convolution product equals $0$ for these values of $t$. To be precise, this is the case when $t<-4$.
+
+Now if we start at $t=-4$ and increase $t$, the two regions where the graphs of $f(\tau)$ and $g(t-\tau)$ are nonzero start to overlap. We then obtain the situation on the left half of {numref}`Fig:FourierTrs:Convothert`. In particular, we have that both $f(\tau)$ and $g(t-\tau)$ are nonzero whenever $-1\leq \tau\leq t+3$. In that case, we obtain the convolution product
+
+$$
+ (f\ast g)(t)=\int_{-\infty}^\infty f(\tau)g(t-\tau)\,d\tau=\int_{-1}^{t+3}1\,d\tau=t+4.
+$$
+
+As we increase $t$, the situation changes when $t+3$ passes $1$, i.e. at $t=-2$. In that case, we obtain the situation from {numref}`Fig:FourierTrs:Convt0`. Then the convolution product becomes
+
+$$
+ (f\ast g)(t)=\int_{-\infty}^\infty f(\tau)g(t-\tau)\,d\tau=\int_{-1}^{1}1\,d\tau=2.
+$$
+
+Then, if we increase $t$ even further, the situation will change again when $t-2$ becomes $-1$, i.e at $t=1$. In that case, we obtain the situation on the right half of {numref}`Fig:FourierTrs:Convothert` and we evaluate
+
+$$
+ (f\ast g)(t)=\int_{-\infty}^\infty f(\tau)g(t-\tau)\,d\tau=\int_{t-2}^{1}1\,d\tau=3-t.
+$$
+
+The final change is when $t-2$ becomes $1$, i.e. at $t=3$. In that case, the regions where the graphs of $f(\tau)$ and $g(t-\tau)$ are nonzero do not overlap again, so the convolution product is $0$ again.
+
+Combining all of these computations, we obtain
+
+$$
+ (f\ast g)(t)=\left\{\begin{array}{l}0,\quad&t\leq -4,\\ t+4,\quad&-4<t\leq-2\\ 2,\quad& -2<t\leq1\\ 3-t,\quad&1<t\leq 3,\\ 0,\quad& 3<t.\end{array}\right.
+$$
+
+:::{figure} Images/Fig-FourierTrs-Convothert.png
+:name: Fig:FourierTrs:Convothert
+
+The graph of the functions $f(\tau)$, $g(t-\tau)$ and $f(\tau)g(t-\tau)$ for $t=-3$ (left) and for $t=2$ (right).
+:::
+
+Finally, from {prf:ref}`Ex:Fouriertr:Block` we find that the Fourier transform of $f$ is given by
+
+$$
+ \hat{f}(\omega)=\frac{2\sin(\omega)}{\omega}.
+$$
+
+For the Fourier transform of $g$, we note that $g(t)=h\left(t+\frac{1}{2}\right)$, where
+
+$$
+ h(t)=u_{-\frac{5}{2}}(t)-u_{\frac{5}{2}}(t).
+$$
+
+As such, we obtain from {prf:ref}`Thm:Fouriertr:Shift` that
+
+$$
+ \hat{g}(\omega)=e^{-i\left(-\frac{1}{2}\right)\omega}\hat{h}(\omega)=e^{\frac{i\omega}{2}}\frac{2\sin\left(\frac{5}{2}\omega\right)}{\omega}.
+$$
+
+Combining these, we obtain from {prf:ref}`Thm:Fouriertr:Conv` that the Fourier transform of the convolution product $f\ast g$ is given by
+
+$$
+ \mathcal{F}\left(f\ast g\right)(\omega)=\hat{f}(\omega)\hat{g}(\omega)=\frac{2\sin(\omega)}{\omega}e^{\frac{i\omega}{2}}\frac{2\sin\left(\frac{5}{2}\omega\right)}{\omega}=\frac{4\sin(\omega)\sin\left(\frac{5}{2}\omega\right)e^{\frac{i\omega}{2}}}{\omega^2}.
+$$
+
+
+::::::
+
+The convolution product has some useful properties.
+
+::::::{prf:theorem} 
+:label: Thm:Fouriertr:Convcomputation
+Let $f$, $g$ and $h$ be functions and $a$ and $b$ be real numbers. Then we have
+
+- $(f\ast g)\ast h=f\ast(g\ast h)$,
+- $(af+bg)\ast h=a(f\ast h)+b(g\ast h)$,
+- $f\ast g=g\ast f$.
+
+::::::
+
+:::{admonition} Proof of {prf:ref}`Thm:Fouriertr:Convcomputation`
+:class: tudproof, dropdown
+For the first property, we have by definition
+
+\begin{align*}
+ ((f\ast g)\ast h)(t)=&\int_{-\infty}^\infty (f\ast g)(\tau)h(t-\tau)\,d\tau\\
+ =&\int_{-\infty}^\infty\int_{-\infty}^\infty f(\sigma)g(\tau-\sigma)\,d\sigma h(t-\tau)\,d\tau\\
+ =&\int_{-\infty}^\infty\int_{-\infty}^\infty f(\sigma)g(\tau-\sigma) h(t-\tau)\,d\sigma\,d\tau\\
+ =&\int_{-\infty}^\infty\int_{-\infty}^\infty f(\sigma)g(\tau-\sigma) h(t-\tau)\,d\tau\,d\sigma\\
+ =&\int_{-\infty}^\infty f(\sigma)\int_{-\infty}^\infty g(\tau-\sigma) h(t-\tau)\,d\tau\,d\sigma\\
+ =&\int_{-\infty}^\infty f(\sigma)\int_{-\infty}^\infty g(\tau) h(t-\sigma-\tau)\,d\tau\,d\sigma\\
+ =&\int_{-\infty}^\infty f(\sigma)(g\ast h)(t-\sigma)\,d\sigma\\
+ =&((f\ast g)\ast h)(t).
+\end{align*}
+
+For the second property, we have
+
+\begin{align*}
+ ((af+bg)\ast h)(t)=&\int_{-\infty}^\infty (af+ bg)(\tau)h(t-\tau)\,d\tau\\
+ =&a\int_{-\infty}^\infty  f(\tau) h(t-\tau)\,d\tau+b\int_{-\infty}^\infty g(\tau) h(t-\tau)\,d\tau\\
+ =&a(f\ast h)(t)+b(g\ast h)(t).
+\end{align*}
+
+Finally, for the third property we have, using the substitution $\sigma=t-\tau$,
+
+\begin{align*}
+ (f\ast g)(t)=&\int_{-\infty}^\infty f(\tau)g(t-\tau)\,d\tau\\
+ =&\int_{\infty}^{-\infty} f(t-\sigma)g(\sigma)(-1)\,d\sigma\\
+ =&\int_{-\infty}^\infty g(\sigma)f(t-\sigma)\,d\sigma
+ =&(g\ast f)(t).
+\end{align*}
+:::
+
+The convolution product smoothens out functions. That is, you can typically take more derivatives of the convolution product than you can of one of the original functions. This follows from the following result.
+
+::::::{prf:theorem} 
+:label: Thm:Fouriertr:Convsmooth
+If the convolution product $f\ast g$ exists and either $f$ or $g$ is differentiable, $f\ast g$ is differentiable and we have
+
+$$
+ \frac{d}{dt}\left(f\ast g\right)=\frac{df}{dt}\ast g=f\ast \frac{dg}{dt},
+$$
+
+whenever each of the derivatives $\dfrac{d}{dt}$ or $\dfrac{dg}{dt}$ exists.
+
+::::::
+
+:::{admonition} Proof of {prf:ref}`Thm:Fouriertr:Convsmooth`
+:class: tudproof, dropdown
+According to {prf:ref}`Thm:Fouriertr:Conv`, the Fourier transform of $f\ast g$ is given by $\hat{f}\hat{g}$. On account of {prf:ref}`Thm:Fouriertr:Diff`, differentiation in the time domain is the same as multiplication by $i\omega$ in the frequency domain and we have
+
+$$
+ i\omega (\hat{f}\hat{g})=(i\omega \hat{f})\hat{g}=\hat{f}(i\omega \hat{g}).
+$$
+
+Taking the inverse Fourier transform gives the desired result.
+
+:::
+
+
+Recall that the **Dirac delta function** $\delta(t)$ is a "function" satisfying $\delta(t)=0$ for $t\neq 0$ and
+
+$$
+ \int_{-\infty}^\infty \delta(t)\,dt=1.
+$$
+
+The reason why we call it a "function" instead of an actual function, is that in order for the integral property to be true, $\delta(0)$ would need to be $\infty$, but no actual function has that property. Still, the delta function behaves like a function in all other respect. The usual purpose of the delta function is to model very short pulses. For any function $f$ which is continuous at a point $a$, we have the important integral property
+
+$$
+ \int_{-\infty}^\infty f(t)\delta(t-a)\,dt=f(a).
+$$
+
+Even though the delta function is not an actual function, we can still find its Fourier transform. This is not very
+surprising, since finding a Fourier transform involves integrating, which is the one thing we can do with delta functions.
+
+::::::{prf:theorem} 
+:label: Thm:Fouriertr:Delta
+The Fourier trnasform of the Dirac delta function equals the constant function $1$:
+
+$$
+ \mathcal{F}(\delta(t))(\omega)=1.
+$$
+
+::::::
+
+:::{admonition} Proof of {prf:ref}`Thm:Fouriertr:Delta`
+:class: tudproof, dropdown
+We obtain
+
+$$
+ \mathcal{F}(\delta(t))(\omega)=\int_{-\infty}^\infty \delta(t)e^{-i\omega t}\,dt=e^{-i\omega\cdot 0}=1.
+$$
+:::
+
+As a consequence, we can find the convolution of the delta function with most other functions.
+
+::::::{prf:theorem} 
+:label: Thm:Fouriertr:Deltaconv
+For any continuous function $f$ we have
+
+$$
+ \delta \ast f=f.
+$$
+
+::::::
+
+:::{admonition} Proof of {prf:ref}`Thm:Fouriertr:Delta`
+:class: tudproof, dropdown
+By definition, we have
+
+$$
+ (\delta \ast f)(t)=\int_{-\infty}^\infty\delta(t)f(t-\tau)\,dt=f(t-0)=f(t).
+$$
+
+The proof is even quicker if the function $f$ has a Fourier transform $\hat{f}$. In that case, we obtain from {prf:ref}`Thm:Fouriertr:Conv` and {prf:ref}`Thm:Fouriertr:Delta` that
+
+$$
+ \mathcal{F}(\delta\ast f)(\omega)=\hat{f}(\omega)\mathcal{F}(\delta)(\omega)=\hat{f}(\omega)\cdot 1=\hat{f}(\omega).
+$$
+
+Since the Fourier transform does not change, we must have $\delta\ast f=f$.
+:::
+
+## Differential equations and Fourier transforms
+
+Just like the Laplace transform, the Fourier transform can, in principle, be used to find solutions of differential equations. However, we will see that in most cases we can only find particular solutions, while we need to use other techniques to find the general solution. Let us see how this technique works by considering an example.
+
+::::::{prf:example} 
+:label: Ex:Fouriertr:Diffhom
+Consider the differential equation
+
+$$
+ y''+2y'+5y=0.
+$$
+
+Of course, we already know how to solve this equation, but let us see how we could, alternatively, use the Fourier transform to find the solution. We take the Fourier transform of both sides of the equation. By {prf:ref}`Thm:Fouriertr:Diff`, the Fourier transform of a derivative just means multiplication by $i\omega$. Hence, we obtain
+
+$$
+ (i\omega)^2+2(i\omega)\hat{y}+5\hat{y}=0.
+$$
+
+The most important observation here is that this is no longer a differnetial equation for $\hat{y}$, as there are no derivatives anymore. As such, it seems much easier to solve this equation in the Fourier domain, so let us try to do this. We first rewrite the equation to
+
+$$
+ \left(-\omega^2+2i\omega+5\right)\hat{y}=0.
+$$
+
+Since we are trying to solve for $\hat{y}$, we only obtain $\hat{y}=0$, which gives $y=0$. This function certainly is a solution of the differential equation, but it is not the only one. However, they do not seem to be present here in the Fourier domain, so how can that be? The unfortunate answer is that these other solutions do not have a convergent Fourier transform, so we implicitly ruled them out when we took the Fourier transform of our differential equation.
+::::::
+
+As {prf:ref}`Ex:Fouriertr:Diffhom` shows, it is, in practice, only possible to find particular solutions using the Fourier transform and not the general solution. Fortunately, solving homogeneous equations is easier in general than finding particular solutions, so this is not a very big problem, but it is something to keep in mind.
+
+::::::{prf:example} 
+:label: Ex:Fouriertr:Diffhom
+Consider the differential equation
+
+$$
+ y''+2y'+5y=\delta(t),
+$$
+
+[^FootnoteNegt]: Of course, in practical situations, a system starts at some point in time, so considering negative values of $t$ is not necessary in those cases.
+
+defined for **all** values of $t$. If we were to only consider positive values of $t$, we could use the Laplace transform, but that does not work when we consider all values of $t$.[FootnoteNegt]
+
+The physical interpretation of having a delta function as nonhomogeneous term, would be that we consider a mass-spring system where we hit the mass at precisely time zero.
+
+We now take the Fourier transform of both sides of the equation to obtain
+
+$$
+ (i\omega)^2+2(i\omega)\hat{y}+5\hat{y}=1,
+$$
+
+which gives
+
+$$
+ \hat{y}=\frac{1}{-\omega^2+2i\omega+5}.
+$$
+
+In order to transform back, we need to write the right-hand side of this equation in terms of known Fourier transforms. For this, we make a partial fraction decomposition of the right-hand side. We notice that 
+
+$$
+ -\omega^2+2i\omega+5=-(\omega+(2-i))(\omega-(2+i)).
+$$
+
+Then we write
+
+$$
+ \frac{1}{-\omega^2+2i\omega+5}=\frac{A}{\omega+(2-i)}+\frac{B}{\omega-(2+i)}.
+$$
+
+Solving for $A$ and $B$ gives $A=\dfrac{1}{4}$ and $B=-\dfrac{1}{4}$, so we find
+
+$$
+ \hat{y}=\frac{1}{4}\frac{1}{\omega+(2-i)}-\frac{1}{4}\frac{1}{\omega-(2+i)}.
+$$
+
+These functions most closely resemble the ones from {prf:ref}`Ex:Fouriertr:Exponential`. Fortunately, we allowed $a$ to be a complex number in the example (at least one with positive real part), so we can use the computation from that example. Indeed, we can multiply the numerators and denominators of both fractions by $i$ to write
+
+$$
+ \hat{y}=\frac{i}{4}\frac{1}{i\omega+1+2i}-\frac{i}{4}\frac{1}{\omega+1-2i}.
+$$
+
+This is in the same form as the Fourier transform in {prf:ref}`Ex:Fouriertr:Exponential`, so we find that a particular solution $y_p(t)$ of this differential equation is given by
+
+$$
+ y_p(t)=\frac{i}{4}e^{-(1+2i)t}u_0(t)-\frac{i}{4}e^{-(1-2i)t}u_0(t)=\frac{1}{2}e^{-t}\left(\frac{e^{2it}-e^{-2it}}{2i}\right)u_0(t)=\frac{1}{2}e^{-t}\sin(2t)u_0(t).
+$$
+
+You can verify yourself that this solution satisfies the differential equation on the intervals $(-\infty,0)$ and $(0,\infty)$. At the point $t=0$ this is harder, since the derivative is discontinuous there (do note that the solution itself is continuous at $0$). If you want to formulate this properly mathematically you need to study the mathematical theory of distributions.
+
+:::{figure} Images/Fig-FourierTrs-Diffdelta.png
+:name: Fig:FourierTrs:Diffdelta
+
+The graph of the particular solution $y_p(t)$ (left) and of its derivative (right).
+:::
+
+::::::
+
 :::{todo}
 Er moet nog
 - Tabel met Fourier transforms
-- Delta functies
-- Convolutie
-- Parseval/Plancherel (naamgeving checken, ook in slides)
-- DVs oplossen
+- DVs oplossen met convolution
 - INLEIDING
 
 Zorg ook dat je bestand van meeting nog checkt.
