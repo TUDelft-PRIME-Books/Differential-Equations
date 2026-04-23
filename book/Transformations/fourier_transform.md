@@ -10,6 +10,8 @@ This page reuses content from {cite:t}`vdBult2025fouriertransform`.
 
 ## Introduction
 
+Consider a sound signal. If the sound signal consists of only one tone, then the signal can be moddeled as a single (co)sine. 
+
 ## (Inverse) Fourier transform
 
 Let us formalize the concepts that we have seen in {numref}`Subsec:Fouriertr:Intro`.
@@ -195,7 +197,7 @@ $$
 
 In the final step we used the trigonometric identity $\sin^2(x)=\frac{1}{2}-\frac{1}{2}\cos(2x)$.
 
-:::{figure} Images/Fig-FourierTrs-Triangle.png
+:::{figure} Images/Fig-FourierTrs-TriangleFT.png
 :name: Fig:FourierTrs:triangleFT
 
 The graph of the Fourier transform of the function $f$.
@@ -213,7 +215,7 @@ For functions $f(t)$ and $g(t)$ whose Fourier transforms exist and constants  $c
 
 $$
  {\mathcal F}\left\{c_{1} f(t) + c_{2} g(t)\right\}(\omega)=c_{1}{\mathcal F}\left\{f(t)\right\}(\omega)
-+ c_{2}{\mathcal F}\left\{g(t)\right\}(\omega).
+ + c_{2}{\mathcal F}\left\{g(t)\right\}(\omega).
 $$
 
 
@@ -224,7 +226,7 @@ $$
 Since the integral is linear (even an improper one), we find for any $\omega$ that
 
 $$
- \mathcal{F}(c_1f+c_2g)(\omega)=\int_{-\infty}^\infty (c_1f(t)+c_2g(t))e^{-i\omega t}\,dt=c_1\int_{-\infty}^\infty f(t)e^{-i\omega t}\,dt+c_2\int_{-\infty}^\infty g(t)\,dt=c_1\mathcal{F}(f)(\omega)+c_2\mathcal{F}(g)(\pomega).
+ \mathcal{F}(c_1f+c_2g)(\omega)=\int_{-\infty}^\infty (c_1f(t)+c_2g(t))e^{-i\omega t}\,dt=c_1\int_{-\infty}^\infty f(t)e^{-i\omega t}\,dt+c_2\int_{-\infty}^\infty g(t)\,dt=c_1\mathcal{F}(f)(\omega)+c_2\mathcal{F}(g)(\omega).
 $$
 
 This yields ${\mathcal F}\left\{c_{1} f(t) + c_{2} g(t)\right\}(\omega=c_{1}{\mathcal F}\left\{f(t)\right\}(\omega)+c_{2}{\mathcal F}\left\{g(t)\right\}(\omega)$, as desired.
@@ -380,7 +382,7 @@ $$
 :::{figure} Images/Fig-FourierTrs-Exp1overtsq.png
 :name: Fig:FourierTrs:Exp1overtsq
 
-The graphs of the function $\pi e^{-|t|}$$ and its Fourier transform.
+The graphs of the function $\pi e^{-|t|}$ and its Fourier transform.
 ::::::
 
 Suppose a function $f$ describes an incoming light signal. Shifting the argument (so considering a function of the form $g(t)=f(t-a)$) delays the time the light reaches you, but it should not change the amount of green or blue light you see (that it, it should not change the size of the Fourier transform). It can, however, change the phase of the light. To be precise, we obtain the following result.
@@ -609,7 +611,7 @@ $$
  f(t)=e^{-at^2}
 $$
 
-for some constant $a$. Then we have
+for some constant $a>0$. Then we have
 
 $$
  \hat{f}(\omega)=\int_{-\infty}^\infty e^{-t^2}e^{-i\omega t}\,dt.
@@ -662,7 +664,7 @@ This means that the Fourier transform of a Gaussian is again a Gaussian.
 [^FootnoteUncertainty]: Heisenberg’s uncertainty principle, stating that you cannot know the location and speed of a particle at once, is related to this fact. If we are way too unspecific: In quantum mechanics there is a function $\psi$, called the wave function, indication the location of a particle, while the Fourier transform of $\psi$ gives its speed. The more concentrated this function in one peak the better you know its location, and similarly for $\mathcal{F}(\psi)$ and the speed. But the more spiked you make $\psi$ the more spread $\mathcal{F}(\psi)$ has to be and vice versa. So you can never be certain about both location and speed at the same time.
 
 
-Note that the graph of $f(t)=e^{-at^2}$ is very narrow/spiked when $a$ is very large, while it is rather flat if $a$ is rather flat. As we would expect from {prf:ref}`Thm:Fouriertr:Scaling`, this relation is inverted for the Fourier transform.[FootnoteUncertainty]
+Note that the graph of $f(t)=e^{-at^2}$ is very narrow/spiked when $a$ is very large, while it is rather flat if $a$ is rather flat. As we would expect from {prf:ref}`Thm:Fouriertr:Scaling`, this relation is inverted for the Fourier transform.[^FootnoteUncertainty]
 
 :::{figure} Images/Fig-FourierTrs-Gaussian.png
 :name: Fig:FourierTrs:Exp
@@ -750,11 +752,11 @@ For any complex number $z$, we have $|z|^2=z\overline{z}$, where $\overline{z}$ 
 
 \begin{align*}
  \int_{-\infty}^\infty |f(t)|^2\,dt=&\int_{-\infty}^\infty f(t)\overline{f(t)}\,dt\\
- =&\int_{-\infty}^\infty f(t)\frac{1}{2\pi}\int_{-\infty}^\infty\overline{hat{f}(\omega)e^{it\omega}}\,d\omega\,dt\\
- =&\frac{1}{2\pi}\int_{-\infty}^\infty \int_{-\infty}^\infty f(t)\overline{hat{f}(\omega)}e^{-it\omega}\,d\omega\,dt\\
- =&\frac{1}{2\pi}\int_{-\infty}^\infty \int_{-\infty}^\infty f(t)\overline{hat{f}(\omega)}e^{-it\omega}\,dt\,d\omega\\
- =&\frac{1}{2\pi}\int_{-\infty}^\infty \int_{-\infty}^\infty f(t)e^{-it\omega}\,dt \overline{hat{f}(\omega)}\,d\omega\\
- =&\frac{1}{2\pi}\int_{-\infty}^\infty \hat{f}(\omega) \overline{hat{f}(\omega)}\,d\omega\\
+ =&\int_{-\infty}^\infty f(t)\frac{1}{2\pi}\int_{-\infty}^\infty\overline{\hat{f}(\omega)e^{it\omega}}\,d\omega\,dt\\
+ =&\frac{1}{2\pi}\int_{-\infty}^\infty \int_{-\infty}^\infty f(t)\overline{\hat{f}(\omega)}e^{-it\omega}\,d\omega\,dt\\
+ =&\frac{1}{2\pi}\int_{-\infty}^\infty \int_{-\infty}^\infty f(t)\overline{\hat{f}(\omega)}e^{-it\omega}\,dt\,d\omega\\
+ =&\frac{1}{2\pi}\int_{-\infty}^\infty \int_{-\infty}^\infty f(t)e^{-it\omega}\,dt \overline{\hat{f}(\omega)}\,d\omega\\
+ =&\frac{1}{2\pi}\int_{-\infty}^\infty \hat{f}(\omega) \overline{\hat{f}(\omega)}\,d\omega\\
  =&\frac{1}{2\pi}\int_{-\infty}^\infty |\hat{f}(\omega)|^2\,d\omega.
 \end{align*}
 
@@ -1015,7 +1017,7 @@ For the first property, we have by definition
  =&\int_{-\infty}^\infty f(\sigma)\int_{-\infty}^\infty g(\tau-\sigma) h(t-\tau)\,d\tau\,d\sigma\\
  =&\int_{-\infty}^\infty f(\sigma)\int_{-\infty}^\infty g(\tau) h(t-\sigma-\tau)\,d\tau\,d\sigma\\
  =&\int_{-\infty}^\infty f(\sigma)(g\ast h)(t-\sigma)\,d\sigma\\
- =&((f\ast g)\ast h)(t).
+ =&(f\ast(g\ast h))(t).
 \end{align*}
 
 For the second property, we have
@@ -1031,7 +1033,7 @@ Finally, for the third property we have, using the substitution $\sigma=t-\tau$,
 \begin{align*}
  (f\ast g)(t)=&\int_{-\infty}^\infty f(\tau)g(t-\tau)\,d\tau\\
  =&\int_{\infty}^{-\infty} f(t-\sigma)g(\sigma)(-1)\,d\sigma\\
- =&\int_{-\infty}^\infty g(\sigma)f(t-\sigma)\,d\sigma
+ =&\int_{-\infty}^\infty g(\sigma)f(t-\sigma)\,d\sigma\\
  =&(g\ast f)(t).
 \end{align*}
 :::
@@ -1080,12 +1082,17 @@ surprising, since finding a Fourier transform involves integrating, which is the
 
 ::::::{prf:theorem} 
 :label: Thm:Fouriertr:Delta
-The Fourier trnasform of the Dirac delta function equals the constant function $1$:
+The Fourier transform of the Dirac delta function equals the constant function $1$:
 
 $$
  \mathcal{F}(\delta(t))(\omega)=1.
 $$
 
+Reversely, the Fourier transform of the constant function $1$ is a multiple of the Dirac delta function:
+
+$$
+ \mathcal{F}(1)(\omega)=2\pi\delta(\omega).
+$$
 ::::::
 
 :::{admonition} Proof of {prf:ref}`Thm:Fouriertr:Delta`
@@ -1095,6 +1102,8 @@ We obtain
 $$
  \mathcal{F}(\delta(t))(\omega)=\int_{-\infty}^\infty \delta(t)e^{-i\omega t}\,dt=e^{-i\omega\cdot 0}=1.
 $$
+
+The second identity follows from {prf:ref}`Thm:Fouriertr:Duality`.
 :::
 
 As a consequence, we can find the convolution of the delta function with most other functions.
@@ -1126,6 +1135,111 @@ $$
 Since the Fourier transform does not change, we must have $\delta\ast f=f$.
 :::
 
+Recall that the Fourier transform is used mostly for finding which frequencies are present in a signal. This means that it is very natural to consider the fourier transforms of the sine and cosine functions. Since we have not covered these yet, let us quickly do so (we will see why we postponed them below).
+
+::::::{prf:example} Sine and cosine
+:label: Thm:Fouriertr:Sincos
+In order to find the Fourier transforms of the sine and cosine, we first consider the complex exponential
+
+$$
+ f(t)=e^{iat}
+$$
+
+for some $a>0$. Then we can write
+
+$$
+ f(t)=e^{iat}\cdot 1.
+$$
+
+It may seem strange to write the function like this, but it means that we can use the rules that we have established so far. Indeed, {prf:ref}`Thm:Fouriertr:Shiftfreq` tells us that the Fourier transform of $f$ is a shifted version of the one of the constant function $1$. The Fourier transform of the constant function $1$ is $2\pi\delta(\omega)$ on account of {prf:ref}`Thm:Fouriertr:Delta`. So we find that
+
+$$
+ \hat{f}(\omega)=2\pi\delta(\omega-a).
+$$
+
+We can use this to find the Fourier transforms of $g(t)=\cos(at)$ and $h(t)=\sin(at)$. For this we notice that
+
+$$
+ g(t)=\frac{f(t)+f(-t)}{2},\qquad h(t)=\frac{f(t)-f(-t)}{2i}.
+$$
+
+On account of {prf:ref}`Thm:Fouriertr:Linear` and {prf:ref}`Thm:Fouriertr:Scaling` we obtain
+
+$$
+ \hat{g}(\omega)=\pi\left(\delta(\omega-a)+\delta(\omega+a)\right)
+$$
+
+and
+
+$$
+ \hat{g}(\omega)=-i\pi\left(\delta(\omega-a)-\delta(\omega+a)\right).
+$$
+
+This means that the Fourier transforms of $g(t)=\cos(at)$ and $h(t)=\sin(at)$ both consist of a peak at $-a$ and one at $a$. This should not come as a surprise: these two functions have a single angular frequence, which is $a$, so we should those and only see those (and we always see the negative version as well). 
+
+::::::
+
+It is important to note that we use the full time range from $-\infty$ to $\infty$ to determine the Fourier transform. In practice however, it is impossible to measure a signal on an infinite time range. So what we usually do, is measure the signal on a finite time interval and take the Fourier transform of that piece of signal. If we measure long enough (to at least have caputered a full period of the wave), the Fourier transforms of the original signal and the measured signal will be similar, though not entirely the same.
+
+For instance, consider the function $f(t)=\cos(t)$. According to {prf:ref}`Thm:Fouriertr:Sincos`, its Fourier transform has peaks at $\omega=-1$ and $\omega=1$, while it $0$ everywhere else. Suppose we measure this signal from $t=-10\pi$ to $t=10\pi$ (we choose a symmetric integral for convenience). This means that we are actually looking at the Fourier transform of the signal
+
+$$
+ g(t)=f(t)(u_{-10\pi}(t)-u_{10\pi}(t)).
+$$
+
+It can be shown that
+
+$$
+ \hat{g}(\omega)=\frac{2\omega\sin(10\pi \omega)}{\omega^2-1}.
+$$
+
+The graph of this Fourier transform is shown in {numref}`Fig:FourierTrs:Cutoffcos`.
+
+:::{figure} Images/Fig-FourierTrs-Cutoffcos.png
+:name: Fig:FourierTrs:Cutoffcos
+
+The graph of the Fourier transform $\hat{g}(\omega)$.
+:::
+
+We see that we still have peaks at $\omega=-1$ and $\omega=1$, but they are no longer infinitely high. In addition, the function $\hat{g}$ is not $0$ for most other values of $\omega$. Still, the difference in amplitude between the values $\omega=-1,\omega=1$ and the other values of $\omega$ is very significant, so using a finite time interval still allows us to find the relevant frequencies in practice.
+
+In addition, it is impossible, in practice, to measure a signal at **all** time points in a given time interval. Instead, we usually measure the signal at different timepoints in the time interval. Such a measurement is known as a **sample**. The **sampling frequency** or **sampling rate** is the frequency of these measurements. Then, the measurements are connected together by means of an interpolation procedure.
+
+It is important to keep in mind that you need enough data points to fully capture the behaviour of the signal. If the number of samples is too low, you might encounter a phenomenon known as **aliasing**. More specifically, aliasing means that the reconstructed signal from the sample contains frequencies (i.e. peaks in the Fourier transform) that the original signal did not have. Aliasing occurs whenever there are less than two samples per period of the signal. Here, we will not delve deeper in this subject, but it is a very important concept to keep in mind when using the Fourier transform in practice.
+
+:::{figure} Images/Gif-FourierTrs-WagonWheelEffect.gif
+:name: Fig:FourierTrs:WagonWheelEffect
+
+A well-known type of aliasing is known as the **wagon wheel effect**. In this animation, the camera, which has a constant shutter speed, moves to the right and its velocity increases by a fixed rate. This means that the objects appear to be sliding to the left. Halfway through the loop, the objects appear to suddenly shift and head to the right. This happens because the sampling rate has become too small compared to the motion of the objects, causing the positive frequency to be perceived as a negative one.
+
+This animation originates from https://en.wikipedia.org/wiki/Aliasing.
+:::
+
+## Table of Fourier transforms
+
+We collect some of the most important Fourier transforms we have obtained so far in the following table. Of course, there are more functions of which the Fourier transform is known analytically, so this is not an exhaustive list.
+
+```{table} Standard Fourier transforms.
+:widths: auto
+:align: center
+:name: Tab:Fouriertr:standard
+
+|Function|Fourier transform|Parameter value|As seen in
+|-|-|-|-|
+|$e^{-at}u_0(t)$|$\dfrac{1}{a+i\omega}$|$\mathrm{Re}(a)>0$|{prf:ref}`Ex:Fouriertr:Exponential`|
+|$u_{-a}(t)-u_a(t)$|$\dfrac{2\sin(a\omega)}{\omega}$|$a>0$|{prf:ref}`Ex:Fouriertr:Block`|
+|$(1-\vert t\vert)(u_{-1}(t)-u_1(t))$|$\dfrac{4\sin^2\left(\frac{\omega}{2}\right)}{\omega^2}$|N.A.|{prf:ref}`Ex:Fouriertr:Triangle`|
+|$e^{-\vert t\vert}$|$\dfrac{2}{1+\omega^2}$|N.A.|{prf:ref}`Ex:Fouriertr:Linscale`|
+|$\dfrac{1}{1+t^2}$|$\pi e^{-\vert \omega\vert }$|N.A.|{prf:ref}`Ex:Fouriertr:Duality`|
+|$e^{-at^2}$|$\sqrt{\dfrac{\pi}{a}}e^{-\frac{\omega^2}{4a}}$|$a>0$|{prf:ref}`Ex:Fouriertr:Gaussian`|
+|$\delta(t)$|$1$|N.A.|{prf:ref}`Thm:Fouriertr:Delta`|
+|$1$|$2\pi\delta(\omega)$|N.A.|{prf:ref}`Thm:Fouriertr:Delta`|
+|$e^{iat}$|$2\pi\delta(\omega-a)$|$a>0$|{prf:ref}`Thm:Fouriertr:Sincos`|
+|$\cos(at)$|$\pi\left(\delta(\omega-a)+\delta(\omega+a)\right)$|$a>0$|{prf:ref}`Thm:Fouriertr:Sincos`|
+|$\sin(at)$|$-i\pi\left(\delta(\omega-a)-\delta(\omega+a)\right)$|$a>0$|{prf:ref}`Thm:Fouriertr:Sincos`|
+```
+
+
 ## Differential equations and Fourier transforms
 
 Just like the Laplace transform, the Fourier transform can, in principle, be used to find solutions of differential equations. However, we will see that in most cases we can only find particular solutions, while we need to use other techniques to find the general solution. Let us see how this technique works by considering an example.
@@ -1156,7 +1270,7 @@ Since we are trying to solve for $\hat{y}$, we only obtain $\hat{y}=0$, which gi
 As {prf:ref}`Ex:Fouriertr:Diffhom` shows, it is, in practice, only possible to find particular solutions using the Fourier transform and not the general solution. Fortunately, solving homogeneous equations is easier in general than finding particular solutions, so this is not a very big problem, but it is something to keep in mind.
 
 ::::::{prf:example} 
-:label: Ex:Fouriertr:Diffhom
+:label: Ex:Fouriertr:Diffdelta
 Consider the differential equation
 
 $$
@@ -1165,7 +1279,7 @@ $$
 
 [^FootnoteNegt]: Of course, in practical situations, a system starts at some point in time, so considering negative values of $t$ is not necessary in those cases.
 
-defined for **all** values of $t$. If we were to only consider positive values of $t$, we could use the Laplace transform, but that does not work when we consider all values of $t$.[FootnoteNegt]
+defined for **all** values of $t$. If we were to only consider positive values of $t$, we could use the Laplace transform, but that does not work when we consider all values of $t$.[^FootnoteNegt]
 
 The physical interpretation of having a delta function as nonhomogeneous term, would be that we consider a mass-spring system where we hit the mass at precisely time zero.
 
@@ -1221,11 +1335,63 @@ The graph of the particular solution $y_p(t)$ (left) and of its derivative (righ
 
 ::::::
 
-:::{todo}
-Er moet nog
-- Tabel met Fourier transforms
-- DVs oplossen met convolution
-- INLEIDING
+::::::{prf:example} 
+:label: Ex:Fouriertr:Diffconv
+Consider the differential equation
 
-Zorg ook dat je bestand van meeting nog checkt.
-:::
+$$
+ y''+4y'+29y=f(t)
+$$
+
+for some nonhomogenous term $f(t)$. Taking the Fourier transform of this equation, we obtain
+
+$$
+ (i\omega)^2+4i\omega\hat{y}+29\hat{y}=\hat{f}.
+$$
+
+Solving for $\hat{y}$ gives
+
+$$
+ \hat{y}=\hat{f}\frac{1}{(i\omega)^2+4i\omega +20}.
+$$
+
+Since $\hat{y}$ is the product of two functions, {prf:ref}`Thm:Fouriertr:Conv` tells us that
+
+$$
+ y=f\ast\mathcal{F}{-1}\left(\frac{1}{(i\omega)^2+4i\omega +20}\right).
+$$
+
+So the solution to this differential equation is always a convolution product of the nonhomogenous term and the same function $\mathcal{F}{-1}\left(\frac{1}{(i\omega)^2+4i\omega +20}\right)$. We can use this to our advantage in the following way: suppose we now choose $f(t)=\delta(t)$. Then we know that $\hat{f}(t)=1$, so in that case we obtain
+
+$$
+ \hat{y}=\frac{1}{(i\omega)^2+4i\omega +20},
+$$
+
+which gives
+
+$$
+ \mathcal{F}{-1}\left(\frac{1}{(i\omega)^2+4i\omega +20}\right).
+$$
+
+This means that this special function $\mathcal{F}{-1}\left(\frac{1}{(i\omega)^2+4i\omega +20}\right)$ is a particular solution to the differential equation with $f(t)=\delta(t)$. 
+
+So if we know this solution (for instance, because we can measure it), we can use it to find the solution when we have a different $f$. It gets even better: this even works if we do not know the differential equation. As long as we can measure the reaction of the system when using the delta function as an external input, we can use the result to determine the reaction of the system to any other external input. We will make this idea precise in the theorem below.
+
+::::::
+
+::::::{prf:theorem} 
+:label: Thm:Fouriertr:Diffconv
+Consider the linear differential equation
+
+$$
+ \sum_n c_ny^{(n)}=\delta(t)
+$$
+
+where the $c_n$ are constants. Suppose $y_\delta$ is a solution to this differential equation. Then $y_p=f\ast y\delta$ is a particular solution to the equation
+
+$$
+ \sum_n c_ny^{(n)}=f(t).
+$$
+::::::
+
+
