@@ -9,6 +9,7 @@ parts:
     chapters:
     - file: introduction.md
   - caption: Transformations
+    numbered: True
     chapters:
     - file: Transformations/fourier_transform.md
   - caption: Back matter
