@@ -10,7 +10,118 @@ This page reuses content from {cite:t}`vdBult2025fouriertransform`.
 
 ## Introduction
 
-Consider a sound signal. If the sound signal consists of only one tone, then the signal can be moddeled as a single (co)sine. 
+Consider a sound signal. If the sound signal consists of only one tone, then the signal can be moddeled as a single (co)sine. If the signal consists of multiple tones, the corresponding functions are added together. Consider the following incoming signal $f(t)$, as shown in {numref}`Fig:FourierTrs:Introsignal`.
+
+:::{figure} Images/Fig-FourierTrs-Introsignal.png
+:name: Fig:FourierTrs:Introsignal
+
+An incoming signal $f(t)$.
+:::
+
+[^FootnoteAudio]: The numbers in this function are chosen for mathematical convenience. An audio signal with a frequency of $3$ or $4$ Hz is not audible. In addition, an audio signal does not oscillate around $0$ in practice. 
+
+[^Footnoteplotting]: The graphs look the way we do because $\left|e^{-i\omega t}\right|=1$, so if we just consider $e^{-i\omega t}$ we follow the circle with radius $1$ in the complex plane in clockwise direction. $\omega$ describes how fast we travel through this circle. Since $f$ is real, it only changes the modulus of the complex number $f(t)e^{-i\omega t}$, so we still rotate with the same speed, but the amplitude changes as $f(t)$ changes.
+
+[^Footnotecentermass]: You can imagine this average value by thinking of the curve as a wire with a constant mass density. The average value is then the location of the center of mass of the wire, divided by the length of the time interval (which is $10\pi$ in this case).
+
+[^Footnoteintdomain]: Normally, we integrate from $-\infty$ to $\infty$ (see {prf:ref}`Def:Fouriertr:Fouriertr`), but for this function $f$, the signal is $0$ for $t<0$ and for $t>10\pi$, so this would give the same result.
+
+
+This signal is the graph of the function $f(t)=\sin(3t)+\sin(4t)$ for $0\leq t\leq 10\pi$, so we are dealing with the sum of a signal with angular frequency $3$ and one with angular frequence $4$.[^FootnoteAudio] However, if we did not know that, how could we find it out? It is rather hard to read this off from the graph directly and you can imagine this gets increasingly harder if more different frequencies are involved. The way to go here is to use the so-called **Fourier transform**.
+
+The idea of this Fourier transform is as follows. We first multiply the signal by the complex exponential $e^{-i\omega t}$. The $\omega$ in this exponential represents an arbitrary frequency, and it can be any positive (or even negative) real number. If we now plot the curve $f(t)e^{-i\omega t}$ with $0\leq t\leq 10\pi$ for various values of $\omega$, we see that usually obtain some pretty curves in the complex plane[^Footnoteplotting]. 
+
+:::::{grid} 2
+:gutter: 1
+:class-container: full-width
+
+::::{grid-item}
+
+:::{figure} Images/Fig-FourierTrs-omega1.png
+:name: Fig:FourierTrs:omega1
+
+Plot of $f(t)e^{-i\omega t}$ for $\omega=1$. The red dot represents the center of mass of the curve.
+:::
+
+::::
+
+::::{grid-item}
+
+:::{figure} Images/Fig-FourierTrs-omega2.png
+:name: Fig:FourierTrs:omega2
+
+Plot of $f(t)e^{-i\omega t}$ for $\omega=2$. The red dot represents the center of mass of the curve.
+:::
+
+::::
+:::::
+
+:::::{grid} 2
+:gutter: 1
+:class-container: full-width
+
+::::{grid-item}
+
+:::{figure} Images/Fig-FourierTrs-omega3.png
+:name: Fig:FourierTrs:omega3
+
+Plot of $f(t)e^{-i\omega t}$ for $\omega=3$. The red dot represents the center of mass of the curve.
+:::
+
+::::
+
+::::{grid-item}
+
+:::{figure} Images/Fig-FourierTrs-omega4.png
+:name: Fig:FourierTrs:omega4
+
+Plot of $f(t)e^{-i\omega t}$ for $\omega=4$. The red dot represents the center of mass of the curve.
+:::
+
+::::
+:::::
+
+:::::{grid} 2
+:gutter: 1
+:class-container: full-width
+
+::::{grid-item}
+
+:::{figure} Images/Fig-FourierTrs-omega5.png
+:name: Fig:FourierTrs:omega5
+
+Plot of $f(t)e^{-i\omega t}$ for $\omega=5$. The red dot represents the center of mass of the curve.
+:::
+
+::::
+
+::::{grid-item}
+
+:::{figure} Images/Fig-FourierTrs-omega6.png
+:name: Fig:FourierTrs:omega6
+
+Plot of $f(t)e^{-i\omega t}$ for $\omega=6. The red dot represents the center of mass of the curve.
+:::
+
+::::
+:::::
+
+It is noticable that the curves for $\omega=3$ and $\omega=4$ look different from the others. Indeed, the other curves are (sort of) symmetric around the origin, while this is not the case for these special values of $\omega$. Of course, these were the two angular frequencies that were present in our signal. 
+
+We can make this a bit concrete. If we integrate the function $e^{-i\omega t}f(t)$ over its domain, we obtain its average value.[^Footnotecentermass] It can be shown that
+
+$$
+ \int_{0}^{10\pi}f(t)e^{-i\omega t}\,dt=-\frac{7 (-12 + \omega ^2)  \left(-e^{-10 i \omega  \pi} +1 \right)}{(-16 + \omega^2) (-9 + \omega^2)}.
+$$
+
+If we then plot the real and imaginary parts of this expression, see {numref}`Fig:FourierTrs:Fourierintro`, we notice large peaks around $\omega=3$ and $\omega=4$ and also around their negative counterparts $\omega=-3$ and $\omega=-4$. The expression above is known as the **Fourier transform** of the function $f$[^Footnoteintdomain]. This means that we can use the Fourier transform to find out that the original function is built up of a signal with angular frequency $3$ and one with angular frequency $4$. 
+
+:::{figure} Images/Fig-FourierTrs-Fourierintro.png
+:name: Fig:FourierTrs:Fourierintro
+
+The real (blue) and imaginary (red) parts of the Fourier transform of the singal $f$.
+:::
+
 
 ## (Inverse) Fourier transform
 
