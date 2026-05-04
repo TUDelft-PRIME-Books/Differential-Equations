@@ -26,8 +26,10 @@ An incoming signal $f(t)$.
 
 [^Footnoteintdomain]: Normally, we integrate from $-\infty$ to $\infty$ (see {prf:ref}`Def:Fouriertr:Fouriertr`), but for this function $f$, the signal is $0$ for $t<0$ and for $t>10\pi$, so this would give the same result.
 
+[^FootnoteFourierseries]: If you are familiar with the Fourier series, you might notice that we could have used this instead of the Fourier transform here. Working with the Fourier series is usually quicker, but it only possible for periodic signals, while the Fourier transform can also be applied for nonperiodic signals.
 
-This signal is the graph of the function $f(t)=\sin(3t)+\sin(4t)$ for $0\leq t\leq 10\pi$, so we are dealing with the sum of a signal with angular frequency $3$ and one with angular frequence $4$.[^FootnoteAudio] However, if we did not know that, how could we find it out? It is rather hard to read this off from the graph directly and you can imagine this gets increasingly harder if more different frequencies are involved. The way to go here is to use the so-called **Fourier transform**.
+
+This signal is the graph of the function $f(t)=\sin(3t)+\sin(4t)$ for $0\leq t\leq 10\pi$, so we are dealing with the sum of a signal with angular frequency $3$ and one with angular frequence $4$.[^FootnoteAudio] However, if we did not know that, how could we find it out? It is rather hard to read this off from the graph directly and you can imagine this gets increasingly harder if more different frequencies are involved. The way to go here is to use the so-called **Fourier transform**[^FootnoteFourierseries].
 
 The idea of this Fourier transform is as follows. We first multiply the signal by the complex exponential $e^{-i\omega t}$. The $\omega$ in this exponential represents an arbitrary frequency, and it can be any positive (or even negative) real number. If we now plot the curve $f(t)e^{-i\omega t}$ with $0\leq t\leq 10\pi$ for various values of $\omega$, we see that usually obtain some pretty curves in the complex plane[^Footnoteplotting]. 
 
@@ -100,7 +102,7 @@ Plot of $f(t)e^{-i\omega t}$ for $\omega=5$. The red dot represents the center o
 :::{figure} Images/Fig-FourierTrs-omega6.png
 :name: Fig:FourierTrs:omega6
 
-Plot of $f(t)e^{-i\omega t}$ for $\omega=6. The red dot represents the center of mass of the curve.
+Plot of $f(t)e^{-i\omega t}$ for $\omega=6$. The red dot represents the center of mass of the curve.
 :::
 
 ::::
@@ -120,6 +122,12 @@ If we then plot the real and imaginary parts of this expression, see {numref}`Fi
 :name: Fig:FourierTrs:Fourierintro
 
 The real (blue) and imaginary (red) parts of the Fourier transform of the singal $f$.
+:::
+
+:::{figure} Images/Fig-FourierTrs-Fourierintromod.png
+:name: Fig:FourierTrs:Fourierintromod
+
+The modulus of the Fourier transform of the singal $f$. The modulus appears to be negative for some values of $\omega$, but this is a limitation of the graphing software.
 :::
 
 
@@ -182,7 +190,7 @@ $$
  \mathcal{F}(f)(-is)=\int_{-\infty}^\infty f(t)e^{-i(-is)t}\,dt=\int_0^\infty f(t)e^{-st}\,dt=\mathcal{L}(f)(s).
 $$
 
-So we can think of the Laplace transform as a Fourier transform with an *imaginary* input $\omega$ (we used $\omega=-is$ here). We will see that many properties of the two transformations work very similarly. The advantage of the Laplace transform is that it converges for more functions than the Fourier transform does. On the other hand, the inverse formula for the Laplace transform is too hard to work with, while for the Fourier transform we have an explicit expression (though that one can still be hard to work with in practice).
+So we can think of the Laplace transform as a Fourier transform with an *imaginary* input $\omega$ (we used $\omega=-is$ here). We will see that many properties of the two transformations work very similarly. The advantage of the Laplace transform is that it converges for some functions where the Fourier transform diverges. On the other hand, the inverse formula for the Laplace transform is too hard to work with, while for the Fourier transform we have an explicit expression (though that one can still be hard to work with in practice).
 :::
 
 For many functions, finding the Fourier transform analytically is impossible as the integrals involved are too hard to evaluate. Still, there are a few imporant functions of which we can evaluate the Fourier transform by hand. Since many of these examples involve step functions, it is convenient to introduce these first.
@@ -228,8 +236,11 @@ $$
  =&\int_{-\infty}^0 0\cdot e^{-i\omega t}\,dt+\int_{0}^\infty e^{-at}e^{-i\omega t}\,dt\\
  =&0+\lim_{b\rightarrow\infty}\int_{0}^b e^{-at-i\omega t}\,dt\\
  =&\lim_{b\rightarrow\infty}\left[\frac{1}{-a-i\omega}e^{-at-i\omega t}\right]_0^b\\
+ =&\lim_{b\rightarrow\infty}\left[\frac{1}{-a-i\omega}e^{-\mathrm{Re}(a)t}e^{-i\mathrm{Im}(a)t-i\omega t}\right]_0^b\\
  =&\frac{1}{a+i\omega}.\end{align*}
 $$
+
+In the final step we found that $\displaystyle \lim_{b\rightarrow\infty}\left[\frac{1}{-a-i\omega}e^{-\mathrm{Re}(a)b}e^{-i\mathrm{Im}(a)b-i\omega b}\right]=0$, since $\displaystyle \lim_{b\rightarrow\infty}e^{-\mathrm{Re}(a)b}=0$ as $\mathrm{Re}(a)>0$, while we have $\left|e^{-i\mathrm{Im}(a)b-i\omega b}\right|=1$ for all $b$. 
 
 Unfortunately, since the Fourier transform of this function is complex-valued, we cannot sketch its graph.
 :::::::
@@ -322,7 +333,7 @@ In order to construct the Fourier transforms of more complicated functions, it i
 
 ::::::{prf:theorem} Linearity
 :label: Thm:Fouriertr:Linear
-For functions $f(t)$ and $g(t)$ whose Fourier transforms exist and constants  $c_{1},\,c_{2} \in \mathbb{R}$, it holds that  
+For functions $f(t)$ and $g(t)$ whose Fourier transforms exist and constants  $c_{1},\,c_{2} \in \mathbb{C}$, it holds that  
 
 $$
  {\mathcal F}\left\{c_{1} f(t) + c_{2} g(t)\right\}(\omega)=c_{1}{\mathcal F}\left\{f(t)\right\}(\omega)
@@ -347,10 +358,10 @@ In {prf:ref}`Thm:Fouriertr:InvFouriertr` we saw that the inverse Fourier transfo
 
 ::::::{prf:theorem} Duality
 :label: Thm:Fouriertr:Duality
-For a function $f(t)$ whose Fourier transform exists, it holds that 
+For a function $f(t)$ of which the Fourier transform and the Fourier transform of the Fourier transform exist, it holds that 
 
 $$
- {\mathcal F}\left\{\mathcal{F}\{f\}(\omega)\right\}(t)={\mathcal F}\left\{\hat{f}(\omega)\right\}(t) =  \int_{-\infty}^\infty \hat{f}(\omega)e^{-it\omega}\,d\omega=2\pi f(-t).
+ {\mathcal F}\left\{\mathcal{F}\{f\}(\omega)\right\}(t)={\mathcal F}\left\{\hat{f}(\omega)\right\}(t) =  2\pi f(-t).
 $$
 
 
@@ -367,22 +378,10 @@ $$
 for any $t$. By substituting $-t$ instead of $t$ and by multiplying the equation by $2\pi$, we obtain
 
 $$
- 2\pi f(-t)=\int_{-\infty}^{\infty}\hat{f}(\omega)e^{i(-t)\omega}\,d\omega.
+ 2\pi f(-t)=\int_{-\infty}^{\infty}\hat{f}(\omega)e^{i(-t)\omega}\,d\omega=\int_{-\infty}^{\infty}\hat{f}(t)e^{-i\omega t}\,d\omega.
 $$
 
-Now we interchange the symbols $t$ and $\omega$ to obtain
-
-$$
- 2\pi f(-\omega)=\int_{-\infty}^{\infty}\hat{f}(t)e^{-i\omega t}\,dt.
-$$
-
-The latter expression is, by definition, equal to $\mathcal{F}(\hat{f})(t)$, so we have found
-
-$$
- 2\pi f(-\omega)=\mathcal{F}(\hat{f})(t).
-$$
-
-Interchanging the symbols $t$ an $\omega$ again, we obtain
+The latter expression is, by definition, equal to $\mathcal{F}(\hat{f})(\omega)$. Hence, we obtain
 
 $$
  2\pi f(-t)=\mathcal{F}(\hat{f})(\omega),
@@ -391,7 +390,9 @@ $$
 as desired.
 :::
 
-Recall that the Fourier transform $\mathcal{F}(f)(\omega)$ is a measure of how much of a wave with angular frequency $\omega$ is contained in the signal $f$. Now if we consider the function $g(t)=f(2t)$, then the signal goes twice as fast. If we compare the graphs of $f$ and $g$, then we obtain the graph of $g$ by compressing the one of $f$ in the $t$-direction by a factor $2$. If the Fourier transform of $f$ has a peak at a certain value $\omega_0$, then the Fourier transform of $g$ will have a peak at $2\omega_0$. This suggests that the graph of the Fourier transform of $g$ will be obtained from the one of the Fourier transform of $f$ by *stretching* it by a factor $2$ in the $\omega$-direction. However, this not is the entire story, since the amplitude of the Fourier transform also changes. In fact, we obtain the following result.
+[^Footnotedoppler]: This result is also related to the famous Doppler effect. For instance, when a vehicle approaches an observer the time axis is compressed, which, rougly speaking, means that we consider $f(at)$ for some $0<a<1$. If the Fourier transform of the original signal has a peak at $\omega_0$, {prf:ref}`Thm:Fouriertr:Scaling` tells us that the Fourier tranform of the moving signal has a peak at $\dfrac{\omega_0}{a}$, which is a higher number than $\omega_0$ since $0<a<1$. This means that the observer hears a higher pitch. Reversely, when the vehicle moves away, we consider $f(bt)$ for some $b>1$. In that case, the Fourier transform will have a peak at $\dfrac{\omega_0}{b}$, which gives a lower pitch than the original signal.
+
+Recall that the Fourier transform $\mathcal{F}(f)(\omega)$ is a measure of how much of a wave with angular frequency $\omega$ is contained in the signal $f$. Now if we consider the function $g(t)=f(2t)$, then the signal goes twice as fast. If we compare the graphs of $f$ and $g$, then we obtain the graph of $g$ by compressing the one of $f$ in the $t$-direction by a factor $2$. If the Fourier transform of $f$ has a peak at a certain value $\omega_0$, then the Fourier transform of $g$ will have a peak at $2\omega_0$. This suggests that the graph of the Fourier transform of $g$ will be obtained from the one of the Fourier transform of $f$ by *stretching* it by a factor $2$ in the $\omega$-direction. However, this not is the entire story, since the amplitude of the Fourier transform also changes. In fact, we obtain the following result[^Footnotedoppler].
 
 ::::::{prf:theorem} Scaling
 :label: Thm:Fouriertr:Scaling
@@ -581,7 +582,7 @@ $$
  =&\frac{1}{-i\omega}e^{-i\omega 3}-\frac{1}{-i\omega}e^{-i\omega\cdot 1}\\
  =&\frac{1}{-i\omega}e^{-2i\omega}\left(e^{-i\omega}-e^{i\omega}\right)\\
  =&\frac{1}{-i\omega}e^{-2i\omega}\left(\cos(-\omega )+i\sin(-\omega )-\cos(\omega )-i\sin(\omega )\right)\\
- =&e^{-2i\omega}\frac{2\sin(a\omega)}{\omega}.\end{align*}
+ =&e^{-2i\omega}\frac{2\sin(\omega)}{\omega}.\end{align*}
 $$
 
 ::::::
@@ -650,7 +651,7 @@ This means that the sometimes rather complicated operation of differentiation is
 For a function $f(t)$ for which the Fourier transform of $tf(t)$ exists, the Fourier transform $\hat{f}(\omega)$ is differentiable and we have
 
 $$
- i\dfrac{d}{d\omega}\hat{f}(\omega)=\mathcal{F}\left\{tf(t)\right\}(\omega).
+ \mathcal{F}\left\{tf(t)\right\}(\omega)=i\dfrac{d}{d\omega}\hat{f}(\omega).
 $$
 ::::::
 
@@ -722,22 +723,16 @@ $$
  f(t)=e^{-at^2}
 $$
 
-for some constant $a>0$. Then we have
+for some constant $a>0$. According to {prf:ref}`Thm:Fouriertr:Multt`, we have
 
 $$
- \hat{f}(\omega)=\int_{-\infty}^\infty e^{-t^2}e^{-i\omega t}\,dt.
+ \frac{d}{d\omega}\hat{f}(\omega)=\frac{1}{i}\mathcal{F}\left\{te^{-at^2}\right\}(\omega)=\frac{1}{i}\mathcal{F}\left\{-\frac{1}{2a}\frac{d}{dt}e^{-at^2}\right\}(\omega).
 $$
 
-According to {prf:ref}`Thm:Fouriertr:Multt`, we have
+Using {prf:ref}`Thm:Fouriertr:Linear` and {prf:ref}`Thm:Fouriertr:Diff`, we find
 
 $$
- \frac{d}{d\omega}\hat{f}(\omega)=\frac{1}{i}\int_{-\infty}^\infty te^{-at^2}e^{-i\omega t}\,dt.
-$$
-
-Using integration by parts, we find
-
-$$
- \frac{d}{d\omega}\hat{f}(\omega)=\left[-\frac{1}{2a}e^{-at^2}e^{-i\omega t}\right]_{t=-\infty}^\infty-\frac{\omega}{2a}\int_{-\infty}^\infty e^{-t^2}e^{-i\omega t}\,dt=0-\frac{\omega}{2a}\hat{f}(\omega)
+ \frac{d}{d\omega}\hat{f}(\omega)=-\frac{1}{2a}i\omega\mathcal{F}\left\{e^{-at^2}\right\}=-\frac{\omega}{2a}\hat{f}(\omega).
 $$
 
 As such, the function $\hat{f}$ is a solution to the differential equation
@@ -1234,7 +1229,7 @@ $$
 By definition, we have
 
 $$
- (\delta \ast f)(t)=\int_{-\infty}^\infty\delta(t)f(t-\tau)\,dt=f(t-0)=f(t).
+ (\delta \ast f)(t)=\int_{-\infty}^\infty\delta(\tau)f(t-\tau)\,d\tau=f(t-0)=f(t).
 $$
 
 The proof is even quicker if the function $f$ has a Fourier transform $\hat{f}$. In that case, we obtain from {prf:ref}`Thm:Fouriertr:Conv` and {prf:ref}`Thm:Fouriertr:Delta` that
