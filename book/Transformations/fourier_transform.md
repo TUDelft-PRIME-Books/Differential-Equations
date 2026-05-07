@@ -950,13 +950,13 @@ As promised, the Fourier transform of the convolution product equals the product
 
 ::::::{prf:theorem} 
 :label: Thm:Fouriertr:Conv
-For functions $f(t)$ and $g(t)$ whose Fourier transform exist, we have that 
+Let $f$ and $g$ be functions whose Fourier transform exist. If the convolution $f\ast g$ and its Fourier transform exist, we have that 
 
 $$
- {\mathcal F}\left\{f\ast g\right\}(\omega)=\hat{f}(\omega)\hat{g}(\omega)
+ {\mathcal F}\left\{f\ast g\right\}(\omega)=\hat{f}(\omega)\hat{g}(\omega).
 $$
 
-and
+If the Fourier transform of $f(t)g(t)$ and the convolution $\hat{f}\ast\hat{g}$ exist, we have that
 
 $$
  2\pi{\mathcal F}\left\{f(t)g(t)\right\}(\omega)=(\hat{f}\ast\hat{g})(\omega).
@@ -1036,7 +1036,10 @@ $$
  (f\ast g)(t)=\int_{-\infty}^\infty f(\tau)g(t-\tau)\,d\tau.
 $$
 
-The integrand of this integral (the function we are integrating) is either $1$, when both $f(\tau)=g(t-\tau)=1$, or $0$, if either $f(\tau)=0$ or $g(t-\tau)=0$. On which intervals the integrand is $0$ depends on the value of $t$. To establish where this is the case, it is useful to sketch $f(\tau)$, $g(t-\tau)$ and $f(\tau)g(t-\tau)$. The area below the latter graph is the desired convolution product. We start with the sketches when $t=0$, see {numref}`Fig:FourierTrs:Convt0`.
+The integrand of this integral (the function we are integrating) is either $1$, when both $f(\tau)=g(t-\tau)=1$, or $0$, if either $f(\tau)=0$ or $g(t-\tau)=0$. On which intervals the integrand is $0$ depends on the value of $t$. To establish where this is the case, it is useful to sketch $f(\tau)$, $g(t-\tau)$ and $f(\tau)g(t-\tau)$. The area below the latter graph is the desired convolution product. Typically, the one of $g(t-\tau)$ is considered the most difficult one to sketch. In general, we obtain this graph by reflecting the graph in the origin (because of the minus sign) and than translating in such a way that the original value at $0$ is now at $t$.
+
+
+We start with the sketches when $t=0$, see {numref}`Fig:FourierTrs:Convt0`.
 
 :::{figure} Images/Fig-FourierTrs-Convt0.png
 :name: Fig:FourierTrs:Convt0
@@ -1160,7 +1163,7 @@ $$
  \frac{d}{dt}\left(f\ast g\right)=\frac{df}{dt}\ast g=f\ast \frac{dg}{dt},
 $$
 
-whenever each of the derivatives $\dfrac{d}{dt}$ or $\dfrac{dg}{dt}$ exists.
+whenever each of the derivatives $\dfrac{df}{dt}$ or $\dfrac{dg}{dt}$ exists.
 
 ::::::
 
@@ -1218,6 +1221,10 @@ $$
 The second identity follows from {prf:ref}`Thm:Fouriertr:Duality`.
 :::
 
+:::{note}
+Although we write $\mathcal{F}(1)(\omega)=2\pi\delta(\omega)$ in {prf:ref}`Thm:Fouriertr:Delta`, the constant function $1$ does not have a Fourier transform in the sense of {prf:ref}`Def:Fouriertr:Fouriertr` as it is not integrable. Then again, the Dirac delta function is also not an actual function. What we actually do here is interpret the Dirac delta function and the constant function $1$ as [distributions](https://en.wikipedia.org/wiki/Distribution_(mathematical_analysis)). It can be shown that the Fourier transform can also be defined for certain types of distributions and that the general properties of the Fourier transform like linearity also work for these distributions. To avoid delving into these technicalities, we pretend that we can interpret Fourier transforms involving the Dirac delta function and the constant function $1$ as if they were functions, but it is good to keep in mind that we are dealing with distributions here. 
+:::
+
 As a consequence, we can find the convolution of the delta function with most other functions.
 
 ::::::{prf:theorem} 
@@ -1257,11 +1264,15 @@ $$
  f(t)=e^{iat}
 $$
 
-for some $a>0$. Then we can write
+[^Footnotedistr]: This function does not have a Fourier transform in the sense of {prf:ref}`Def:Fouriertr:Fouriertr` and neither will the sine and the cosine. Just like with the constant function $1$, we are actually talking about Fourier transforms of distributions here.
+
+for some $a>0$[^Footnotedistr]. Then we can write
 
 $$
  f(t)=e^{iat}\cdot 1.
 $$
+
+ 
 
 It may seem strange to write the function like this, but it means that we can use the rules that we have established so far. Indeed, {prf:ref}`Thm:Fouriertr:Shiftfreq` tells us that the Fourier transform of $f$ is a shifted version of the one of the constant function $1$. The Fourier transform of the constant function $1$ is $2\pi\delta(\omega)$ on account of {prf:ref}`Thm:Fouriertr:Delta`. So we find that
 
@@ -1291,7 +1302,9 @@ This means that the Fourier transforms of $g(t)=\cos(at)$ and $h(t)=\sin(at)$ bo
 
 ::::::
 
-It is important to note that we use the full time range from $-\infty$ to $\infty$ to determine the Fourier transform. In practice however, it is impossible to measure a signal on an infinite time range. So what we usually do, is measure the signal on a finite time interval and take the Fourier transform of that piece of signal. If we measure long enough (to at least have caputered a full period of the wave), the Fourier transforms of the original signal and the measured signal will be similar, though not entirely the same.
+[^Footnotetimeint]: What we do mathematically when we only consider a time interval of the form $[a,b]$, is multiply the signal by the block function $u_b(t)-u_a(t)$. Since a product in the time domain corresponds to a convolution in the Fourier domain, this corresponds to taking a convolution with a sinc-function in the Fourier domain.
+
+It is important to note that we use the full time range from $-\infty$ to $\infty$ to determine the Fourier transform. In practice however, it is impossible to measure a signal on an infinite time range. So what we usually do, is measure the signal on a finite time interval and take the Fourier transform of that piece of signal. If we measure long enough (to at least have caputered a full period of the wave), the Fourier transforms of the original signal and the measured signal will be similar, though not entirely the same.[^Footnotetimeint]
 
 For instance, consider the function $f(t)=\cos(t)$. According to {prf:ref}`Thm:Fouriertr:Sincos`, its Fourier transform has peaks at $\omega=-1$ and $\omega=1$, while it $0$ everywhere else. Suppose we measure this signal from $t=-10\pi$ to $t=10\pi$ (we choose a symmetric integral for convenience). This means that we are actually looking at the Fourier transform of the signal
 
@@ -1315,7 +1328,9 @@ The graph of the Fourier transform $\hat{g}(\omega)$.
 
 We see that we still have peaks at $\omega=-1$ and $\omega=1$, but they are no longer infinitely high. In addition, the function $\hat{g}$ is not $0$ for most other values of $\omega$. Still, the difference in amplitude between the values $\omega=-1,\omega=1$ and the other values of $\omega$ is very significant, so using a finite time interval still allows us to find the relevant frequencies in practice.
 
-In addition, it is impossible, in practice, to measure a signal at **all** time points in a given time interval. Instead, we usually measure the signal at different timepoints in the time interval. Such a measurement is known as a **sample**. The **sampling frequency** or **sampling rate** is the frequency of these measurements. Then, the measurements are connected together by means of an interpolation procedure.
+[^Footnotesampling]: Mathematically speaking, only considering a sample means that we multiply the signal by a weighted sum of Dirac delta functions, each corresponding to the point in time where we take a measurement. As always, a product in the time domain corresponds to a convolution in the Fourier domain. So in the Fourier domain, this corresponds to taking a convolution with a weighted sum of complex exponentials.
+
+In addition, it is impossible, in practice, to measure a signal at **all** time points in a given time interval. Instead, we usually measure the signal at different timepoints in the time interval. Such a measurement is known as a **sample**. The **sampling frequency** or **sampling rate** is the frequency of these measurements. Then, the measurements are connected together by means of an interpolation procedure.[^Footnotesampling]
 
 It is important to keep in mind that you need enough data points to fully capture the behaviour of the signal. If the number of samples is too low, you might encounter a phenomenon known as **aliasing**. More specifically, aliasing means that the reconstructed signal from the sample contains frequencies (i.e. peaks in the Fourier transform) that the original signal did not have. Aliasing occurs whenever there are less than two samples per period of the signal. Here, we will not delve deeper in this subject, but it is a very important concept to keep in mind when using the Fourier transform in practice.
 
@@ -1349,6 +1364,26 @@ We collect some of the most important Fourier transforms we have obtained so far
 |$e^{iat}$|$2\pi\delta(\omega-a)$|$a>0$|{prf:ref}`Thm:Fouriertr:Sincos`|
 |$\cos(at)$|$\pi\left(\delta(\omega-a)+\delta(\omega+a)\right)$|$a>0$|{prf:ref}`Thm:Fouriertr:Sincos`|
 |$\sin(at)$|$-i\pi\left(\delta(\omega-a)-\delta(\omega+a)\right)$|$a>0$|{prf:ref}`Thm:Fouriertr:Sincos`|
+```
+
+In addition, we collect the most important calculation rules. For each one, make sure to check the conditions in the corresponding theorem.
+
+```{table} Computation rules.
+:widths: auto
+:align: center
+:name: Tab:Fouriertr:comprules
+
+|Function|Fourier transform|As seen in
+|-|-|-|
+|$c_1f(t)+c_2g(t)$|$c_1\hat{f}(\omega)+c_2\hat{g}(\omega)$|{prf:ref}`Thm:Fouriertr:Linear`|
+|$\hat{f}(t)$|$2\pi f(-\omega)$|{prf:ref}`Thm:Fouriertr:Duality`|
+|$f(at)$|$\dfrac{1}{\vert a\vert}\hat{f}\left(\dfrac{\omega}{a}\right)$|{prf:ref}`Thm:Fouriertr:Scaling`|
+|$f(t-a)$|$e^{-ia\omega}\hat{f}(\omega)$|{prf:ref}`Thm:Fouriertr:Shift`|
+|$e^{iat}f(t)$|$\hat{f}(\omega-a)$|{prf:ref}`Thm:Fouriertr:Shiftfreq`|
+|$f'(t)$|$i\omega\hat{f}(\omega)$|{prf:ref}`Thm:Fouriertr:Diff`|
+|$tf(t)$|$i\dfrac{d}{d\omega}\hat{f}(\omega)$|{prf:ref}`Thm:Fouriertr:Multt`|
+|$f\ast g$|$\hat{f}(\omega)\hat{g}(\omega)$|{prf:ref}`Thm:Fouriertr:Conv`|
+|$2\pi f(t)g(t)$|$\hat{f}\ast\hat{g}$|{prf:ref}`Thm:Fouriertr:Conv`|
 ```
 
 
@@ -1452,13 +1487,13 @@ The graph of the particular solution $y_p(t)$ (left) and of its derivative (righ
 Consider the differential equation
 
 $$
- y''+4y'+29y=f(t)
+ y''+4y'+20y=f(t)
 $$
 
 for some nonhomogenous term $f(t)$. Taking the Fourier transform of this equation, we obtain
 
 $$
- (i\omega)^2+4i\omega\hat{y}+29\hat{y}=\hat{f}.
+ (i\omega)^2+4i\omega\hat{y}+20\hat{y}=\hat{f}.
 $$
 
 Solving for $\hat{y}$ gives
@@ -1482,10 +1517,10 @@ $$
 which gives
 
 $$
- \mathcal{F}{-1}\left(\frac{1}{(i\omega)^2+4i\omega +20}\right).
+ \mathcal{F}^{-1}\left(\frac{1}{(i\omega)^2+4i\omega +20}\right).
 $$
 
-This means that this special function $\mathcal{F}{-1}\left(\frac{1}{(i\omega)^2+4i\omega +20}\right)$ is a particular solution to the differential equation with $f(t)=\delta(t)$. 
+This means that this special function $\mathcal{F}^{-1}\left(\frac{1}{(i\omega)^2+4i\omega +20}\right)$ is a particular solution to the differential equation with $f(t)=\delta(t)$. 
 
 So if we know this solution (for instance, because we can measure it), we can use it to find the solution when we have a different $f$. It gets even better: this even works if we do not know the differential equation. As long as we can measure the reaction of the system when using the delta function as an external input, we can use the result to determine the reaction of the system to any other external input. We will make this idea precise in the theorem below.
 
@@ -1499,7 +1534,7 @@ $$
  \sum_n c_ny^{(n)}=\delta(t)
 $$
 
-where the $c_n$ are constants. Suppose $y_\delta$ is a solution to this differential equation. Then $y_p=f\ast y\delta$ is a particular solution to the equation
+where the $c_n$ are constants. Suppose $y_\delta$ is a solution to this differential equation. Then $y_p=f\ast y_\delta$ is a particular solution to the equation
 
 $$
  \sum_n c_ny^{(n)}=f(t).
