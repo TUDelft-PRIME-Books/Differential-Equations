@@ -354,6 +354,31 @@ $$
 This yields ${\mathcal F}\left\{c_{1} f(t) + c_{2} g(t)\right\}(\omega=c_{1}{\mathcal F}\left\{f(t)\right\}(\omega)+c_{2}{\mathcal F}\left\{g(t)\right\}(\omega)$, as desired.
 :::
 
+As a consequence of {prf:ref}`Thm:Fouriertr:Linear`, we obtain that two different continuous functions can never have the same Fourier transform.
+
+::::::{prf:corollary} 
+:label: Cor:Fouriertr:Unique
+If $f$ and $g$ are continuous, and $\mathcal{F}(f)=\mathcal{F}(g)$, then we have $f=g$.
+
+::::::
+
+:::{admonition} Proof of {prf:ref}`Cor:Fouriertr:Unique`
+:class: tudproof, dropdown
+From the linearity of the Fourier transform, we have have
+
+$$
+ \mathcal{F}(f-g)=\mathcal{F}(f)-\mathcal{F}(g)=0.
+$$
+
+Then since $f$ and $g$ are continuous, we obtain from {prf:ref}`Thm:Fouriertr:InvFouriertr` that
+
+$$
+ f(t)-g(t)=\frac{1}{2\pi}\int_{-\infty}^{\infty}\mathcal{F}(f-g)(\omega)e^{it\omega}\,d\omega=\frac{1}{2\pi}\int_{-\infty}^{\infty}0\cdot e^{it\omega}\,d\omega=0.
+$$
+
+Hence, we must have $f=g$, as desired.
+:::
+
 In {prf:ref}`Thm:Fouriertr:InvFouriertr` we saw that the inverse Fourier transform is very similar to the Fourier transform itself. So what happens if we apply the Fourier transform twice in a row? Then we expect to obtain something that is similar, but probably not quite the same, as the original function. Indeed, we have the following result.
 
 ::::::{prf:theorem} Duality
@@ -595,23 +620,25 @@ $$
  \hat{f}(\omega)=\frac{1}{1+i\omega}.
 $$
 
-Now we, instead, consider the function $g(t)=e^{2it-t}u_0(t)=e^{2it}f(t)$. According to {prf:ref}`Thm:Fouriertr:Shift`, we must have
+Now we, instead, consider the function $g(t)=\sin(2t)e^{-t}u_0(t)$. Now since 
 
 $$
- \hat{g}(\omega)=\hat{f}(\omega-2).
+ \sin(2t)=\frac{1}{2i}\left(e^{2it}-e^{-2it}\right)
 $$
 
-We could also have found this Fourier transform directly by evaluating
+we have
 
 $$
- \begin{align*}\hat{g}(\omega)=&\int_{-\infty}^\infty e^{2it-t}u_0(t)e^{-i\omega t}\,dt\\
- =&\int_{-\infty}^0 0\cdot e^{-i\omega t}\,dt+\int_{0}^\infty e^{2it-t}e^{-i\omega t}\,dt\\
- =&0+\lim_{b\rightarrow\infty}\int_{0}^b e^{\left(2i-1-i\omega\right) t}\,dt\\
- =&\lim_{b\rightarrow\infty}\left[\frac{1}{2i-1-i\omega}e^{\left(2i-1-i\omega\right) t}\right]_0^b\\
- =&-\frac{1}{2i-1-i\omega}\\
- =&\frac{1}{1+i(\omega-2)}\\
- =&\hat{f}(\omega-2).\end{align*}
+ g(t)=\frac{1}{2i}\left(e^{2it}-e^{-2it}\right)f(t).
 $$
+
+According to {prf:ref}`Thm:Fouriertr:Linear` and {prf:ref}`Thm:Fouriertr:Shift`, we must have
+
+$$
+ \hat{g}(\omega)=\frac{1}{2i}\left(\hat{f}(\omega-2)-\hat{f}(\omega+2)\right)=\frac{1}{2i}\left(\frac{1}{1+i(\omega-2)}-\frac{1}{1+i(\omega+2)}\right)=\frac{2}{-\omega^2+2i\omega+5}.
+$$
+
+
 
 ::::::
 
@@ -633,14 +660,14 @@ $$
 Using integration by parts, we find
 
 $$
- {\mathcal F}\left\{f'(t)\right\}(\omega)=\int_{-\infty}^\infty f'(t)e^{-it\omega}\,dt=\left[f(t)e^{-it\omega}\right]_{t=-\infty}^\infty-\int_{-\infty}^\infty (-i\omega)f'(t)e^{-it\omega}\,dt.
+ {\mathcal F}\left\{f'(t)\right\}(\omega)=\int_{-\infty}^\infty f'(t)e^{-it\omega}\,dt=\left[f(t)e^{-it\omega}\right]_{t=-\infty}^\infty-\int_{-\infty}^\infty (-i\omega)f(t)e^{-it\omega}\,dt.
 $$
 
 We observe that $\displaystyle \lim_{t\rightarrow\pm\infty}f(t)e^{it\omega}=0$, since $\displaystyle \lim_{t\rightarrow\pm\infty}f(t)=0$ and $\left|e^{it\omega}\right|=1$. Hence, we obtain
 
 
 $$
- {\mathcal F}\left\{f'(t)\right\}(\omega)=\left[f(t)e^{-it\omega}\right]_{t=-\infty}^\infty-\int_{-\infty}^\infty (-i\omega)f'(t)e^{-it\omega}\,dt=0+i\omega \int_{-\infty}^\infty f'(t)e^{-it\omega}\,dt=i\omega \hat{f}(\omega).
+ {\mathcal F}\left\{f'(t)\right\}(\omega)=\left[f(t)e^{-it\omega}\right]_{t=-\infty}^\infty-\int_{-\infty}^\infty (-i\omega)f(t)e^{-it\omega}\,dt=0+i\omega \int_{-\infty}^\infty f(t)e^{-it\omega}\,dt=i\omega \hat{f}(\omega).
 $$
 :::
 
@@ -675,7 +702,7 @@ $$
  \frac{d}{d\omega}\hat{f}(\omega)=\int_{-\infty}^\infty \frac{d}{d\omega}\left[f(t)e^{-i\omega t}\right]\,dt=\int_{-\infty}^\infty (-it)f(t)e^{-i\omega t}\,dt.
 $$
 
-Upon taking the $-i$ to the other side of the equation and using that $\dfrac{1}{-i}=i, we obtain
+Upon taking the $-i$ to the other side of the equation and using that $\dfrac{1}{-i}=i$, we obtain
 
 $$
  i\frac{d}{d\omega}\hat{f}(\omega)=\int_{-\infty}^\infty tf(t)e^{-i\omega t}\,dt=\mathcal{F}\left\{tf(t)\right\}(\omega),
@@ -732,7 +759,7 @@ $$
 Using {prf:ref}`Thm:Fouriertr:Linear` and {prf:ref}`Thm:Fouriertr:Diff`, we find
 
 $$
- \frac{d}{d\omega}\hat{f}(\omega)=-\frac{1}{2a}i\omega\mathcal{F}\left\{e^{-at^2}\right\}=-\frac{\omega}{2a}\hat{f}(\omega).
+ \frac{d}{d\omega}\hat{f}(\omega)=-\frac{1}{i}\frac{1}{2a}i\omega\mathcal{F}\left\{e^{-at^2}\right\}=-\frac{\omega}{2a}\hat{f}(\omega).
 $$
 
 As such, the function $\hat{f}$ is a solution to the differential equation
@@ -796,46 +823,46 @@ $$
  \mathcal{F}\left\{e^{-t}u_0(t)\right\}(\omega)=\dfrac{1}{1+i\omega}.
 $$
 
-In order to make connect the function $g$ to this known Fourier transform, we perform a partial fraction decomposition. For this we note that $3+2i\omega+\omega^2=(\omega-i)(\omega+3i)$, so we write
+In order to make connect the function $g$ to this known Fourier transform, we perform a partial fraction decomposition. For this we note that 
 
 $$
- \hat{g}(\omega)=\frac{1}{3+2i\omega+\omega^2}=\frac{A}{\omega-i}+\frac{B}{\omega+3i}.
+ 3+2i\omega+\omega^2=3+2i\omega-(i\omega)^2=-(i\omega+1)(i\omega-3)
 $$
 
-Solving for $A$ and $B$, we find $A=\dfrac{-i}{4}$ and $B=\dfrac{i}{4}$, so we have
+so we write
 
 $$
- \hat{g}(\omega)=\dfrac{-i}{4}\frac{1}{\omega-i}+\dfrac{i}{4}\frac{1}{\omega+3i}.
+ \hat{g}(\omega)=\frac{1}{3+2i\omega+\omega^2}=\frac{A}{i\omega+1}+\frac{B}{-\omega-3}.
 $$
 
-To let it more closely resemble $\dfrac{1}{1+i\omega}$, we write
+Solving for $A$ and $B$, we find $A=\dfrac{1}{4}$ and $B=-\dfrac{1}{4}$, so we have
 
 $$
- \hat{g}(\omega)=\dfrac{-i}{4}\frac{\frac{i}{2}}{i\frac{\omega}{2}+1}+\dfrac{i}{4}\frac{\frac{i}{-3}}{i\frac{\omega}{-3}+1}=\frac{1}{4}\frac{1}{2}\frac{1}{i\frac{\omega}{2}+1}+\frac{1}{4}\frac{1}{3}\frac{1}{i\frac{\omega}{-3}+1}.
+ \hat{g}(\omega)=\dfrac{1}{4}\frac{1}{i\omega +1}-\dfrac{1}{4}\frac{1}{i\omega-3}.
+$$
+
+To let it more closely resemble $\dfrac{1}{i\omega+1}$, we write
+
+$$
+ \hat{g}(\omega)=\dfrac{1}{4}\frac{1}{i\omega +1}-\dfrac{1}{4}\frac{\frac{1}{-3}}{\frac{i\omega}{-3}+1}=\dfrac{1}{4}\frac{1}{i\omega +1}+\dfrac{1}{12}\frac{1}{\frac{i\omega}{-3}+1}.
 $$
 
 Now we note that
 
 $$
- \frac{1}{2}\frac{1}{i\frac{\omega}{2}+1}=\frac{1}{2}\hat{f}\left(\frac{\omega}{2}\right)
-$$
-
-and
-
-$$
- \frac{1}{3}\frac{1}{i\frac{\omega}{-3}+1}=\frac{1}{|-3|}\hat{f}\left(\frac{\omega}{-3}\right).
+ \frac{1}{12}\frac{1}{\frac{i\omega}{-3}+1}=\frac{1}{4}\frac{1}{|-3|}\hat{f}\left(\frac{\omega}{-3}\right).
 $$
 
 As such, we have
 
 $$
- g(\omega)=\frac{1}{4}\frac{1}{2}\hat{f}\left(\frac{\omega}{2}\right)+\frac{1}{4}\frac{1}{|-3|}\hat{f}\left(\frac{\omega}{-3}\right).
+ g(\omega)=\frac{1}{4}\hat{f}\left(\omega\right)+\frac{1}{4}\frac{1}{|-3|}\hat{f}\left(\frac{\omega}{-3}\right).
 $$
 
 Hence, with use {prf:ref}`Thm:Fouriertr:Scaling` we obtain that the inverse Fourier transform $g$ of $\hat{g}$ is given by
 
 $$
- g(t)=\frac{1}{4} f(2t)+\frac{1}{4}f(-3t)=\frac{1}{4}e^{-2t}u_0(2t)+\frac{1}{4}e^{3t}u_0(-3t)=\left\{\begin{array}{ll}\frac{1}{4}e^{3t},\quad &t<0;\\[0.4cm] \frac{1}{4}e^{-t},\quad&t\geq 0.\end{array}\right.
+ g(t)=\frac{1}{4} f(t)+\frac{1}{4}f(-3t)=\frac{1}{4}e^{-t}u_0(t)+\frac{1}{4}e^{3t}u_0(-3t)=\left\{\begin{array}{ll}\frac{1}{4}e^{3t},\quad &t<0;\\[0.4cm] \frac{1}{4}e^{-t},\quad&t\geq 0.\end{array}\right.
 $$
 
 ::::::
@@ -849,6 +876,8 @@ Suppose $f:\mathbb{R}\rightarrow\mathbb{C}$ is a function of which the Fourier t
 $$
  \int_{-\infty}^\infty |f(t)|^2\,dt=\frac{1}{2\pi}\int_{-\infty}^\infty |\hat{f}(\omega)|^2\,d\omega.
 $$
+
+whenever the integral on the left-hand side of this equation converges.
 
 ::::::
 
@@ -899,30 +928,7 @@ On account of {prf:ref}`Thm:Fouriertr:Plancherel`, we can now, instead, evaluate
 
 ::::::
 
-As a consequence of {prf:ref}`Thm:Fouriertr:Plancherel`, we obtain that two different continuous functions can never have the same Fourier transform.
 
-::::::{prf:corollary} 
-:label: Cor:Fouriertr:Plancherel
-If $f$ and $g$ are continuous, and $\mathcal{F}(f)=\mathcal{F}(g)$, then we have $f=g$.
-
-::::::
-
-:::{admonition} Proof of {prf:ref}`Cor:Fouriertr:Plancherel`
-:class: tudproof, dropdown
-From the linearity of the Fourier transform, we have have
-
-$$
- \mathcal{F}(f-g)=\mathcal{F}(f)-\mathcal{F}(g)=0.
-$$
-
-Then we obtain from {prf:ref}`Thm:Fouriertr:Plancherel` that
-
-$$
- \int_{-\infty}^\infty|f(t)-g(t)|^2\,dt=\frac{1}{2\pi}\int_{-\infty}^\infty 0^2\,d\omega=0.
-$$
-
-Since $f$ and $g$ are continuous, we must have $f=g$, as desired.
-:::
 
 ## Convolution and the Dirac delta
 
