@@ -10,7 +10,7 @@ This page reuses content from {cite:t}`vdBult2025fouriertransform`.
 
 ## Introduction
 
-Consider a sound signal. If the sound signal consists of only one tone, then the signal can be moddeled as a single (co)sine. If the signal consists of multiple tones, the corresponding functions are added together. Consider the following incoming signal $f(t)$, as shown in {numref}`Fig:FourierTrs:Introsignal`.
+Consider a sound signal. If the sound signal consists of only one tone, then the signal can be modeled as a single (co)sine. If the signal consists of multiple tones, the corresponding functions are added together. Consider the following incoming signal $f(t)$, as shown in {numref}`Fig:FourierTrs:Introsignal`.
 
 :::{figure} Images/Fig-FourierTrs-Introsignal.png
 :name: Fig:FourierTrs:Introsignal
@@ -108,7 +108,7 @@ Plot of $f(t)e^{-i\omega t}$ for $\omega=6$. The red dot represents the center o
 ::::
 :::::
 
-It is noticable that the curves for $\omega=3$ and $\omega=4$ look different from the others. Indeed, the other curves are (sort of) symmetric around the origin, while this is not the case for these special values of $\omega$. Of course, these were the two angular frequencies that were present in our signal. 
+It is noticeable that the curves for $\omega=3$ and $\omega=4$ look different from the others. Indeed, the other curves are (sort of) symmetric around the origin, while this is not the case for these special values of $\omega$. Of course, these were the two angular frequencies that were present in our signal. 
 
 We can make this a bit concrete. If we integrate the function $e^{-i\omega t}f(t)$ over its domain, we obtain its average value.[^Footnotecentermass] It can be shown that
 
@@ -121,13 +121,13 @@ If we then plot the real and imaginary parts of this expression, see {numref}`Fi
 :::{figure} Images/Fig-FourierTrs-Fourierintro.png
 :name: Fig:FourierTrs:Fourierintro
 
-The real (blue) and imaginary (red) parts of the Fourier transform of the singal $f$.
+The real (blue) and imaginary (red) parts of the Fourier transform of the signal $f$.
 :::
 
 :::{figure} Images/Fig-FourierTrs-Fourierintromod.png
 :name: Fig:FourierTrs:Fourierintromod
 
-The modulus of the Fourier transform of the singal $f$. The modulus appears to be negative for some values of $\omega$, but this is a limitation of the graphing software.
+The modulus of the Fourier transform of the signal $f$. The modulus appears to be negative for some values of $\omega$, but this is a limitation of the graphing software.
 :::
 
 
@@ -143,7 +143,7 @@ $$
  \hat{f}(\omega)=\mathcal{F}(f)(\omega)=\int_{-\infty}^\infty f(t)e^{-i\omega t}\,dt.
 $$
 
-When performing a Fourier transform, the domain of the original function is usually reffered to as the **time domain**, while the domain of the Fourier transform of the function is referred to as the **frequency domain** or the **Fourier domain**.
+When performing a Fourier transform, the domain of the original function is usually refered to as the **time domain**, while the domain of the Fourier transform of the function is referred to as the **frequency domain** or the **Fourier domain**.
 ::::::
 
 :::{note}
@@ -170,7 +170,7 @@ $$
 
 The proof of {prf:ref}`Thm:Fouriertr:InvFouriertr` is beyond the scope of this book, so we omit this proof. 
 
-There are several generalizations possible of {prf:ref}`Thm:Fouriertr:InvFouriertr`. For instance, it is somtimes possible to take an inverse Fourier transform if the integral $\displaystyle \frac{1}{2\pi}\int_{-\infty}^{\infty}\hat{f}(\omega)e^{it\omega}\,d\omega$ diverges for some values of $t$, or if the function $f$ is not continuous. We will not delve deeper into these generalisations here.
+There are several generalizations possible of {prf:ref}`Thm:Fouriertr:InvFouriertr`. For instance, it is sometimes possible to take an inverse Fourier transform if the integral $\displaystyle \frac{1}{2\pi}\int_{-\infty}^{\infty}\hat{f}(\omega)e^{it\omega}\,d\omega$ diverges for some values of $t$, or if the function $f$ is not continuous. We will not delve deeper into these generalisations here.
 
 :::{warning}
 In some literature, one of the following alternative definitions is used for the Fourier transform
@@ -193,7 +193,7 @@ $$
 So we can think of the Laplace transform as a Fourier transform with an *imaginary* input $\omega$ (we used $\omega=-is$ here). We will see that many properties of the two transformations work very similarly. The advantage of the Laplace transform is that it converges for some functions where the Fourier transform diverges. On the other hand, the inverse formula for the Laplace transform is too hard to work with, while for the Fourier transform we have an explicit expression (though that one can still be hard to work with in practice).
 :::
 
-For many functions, finding the Fourier transform analytically is impossible as the integrals involved are too hard to evaluate. Still, there are a few imporant functions of which we can evaluate the Fourier transform by hand. Since many of these examples involve step functions, it is convenient to introduce these first.
+For many functions, finding the Fourier transform analytically is impossible as the integrals involved are too hard to evaluate. Still, there are a few important functions of which we can evaluate the Fourier transform by hand. Since many of these examples involve step functions, it is convenient to introduce these first.
 
 ::::::{prf:definition}
 :label: Def:Fouriertr:Heaviside
@@ -364,7 +364,7 @@ If $f$ and $g$ are continuous, and $\mathcal{F}(f)=\mathcal{F}(g)$, then we have
 
 :::{admonition} Proof of {prf:ref}`Cor:Fouriertr:Unique`
 :class: tudproof, dropdown
-From the linearity of the Fourier transform, we have have
+From the linearity of the Fourier transform, we have
 
 $$
  \mathcal{F}(f-g)=\mathcal{F}(f)-\mathcal{F}(g)=0.
@@ -415,7 +415,7 @@ $$
 as desired.
 :::
 
-[^Footnotedoppler]: This result is also related to the famous Doppler effect. For instance, when a vehicle approaches an observer the time axis is compressed, which, rougly speaking, means that we consider $f(at)$ for some $0<a<1$. If the Fourier transform of the original signal has a peak at $\omega_0$, {prf:ref}`Thm:Fouriertr:Scaling` tells us that the Fourier tranform of the moving signal has a peak at $\dfrac{\omega_0}{a}$, which is a higher number than $\omega_0$ since $0<a<1$. This means that the observer hears a higher pitch. Reversely, when the vehicle moves away, we consider $f(bt)$ for some $b>1$. In that case, the Fourier transform will have a peak at $\dfrac{\omega_0}{b}$, which gives a lower pitch than the original signal.
+[^Footnotedoppler]: This result is also related to the famous Doppler effect. For instance, when a vehicle approaches an observer the time axis is compressed, which, roughly speaking, means that we consider $f(at)$ for some $0<a<1$. If the Fourier transform of the original signal has a peak at $\omega_0$, {prf:ref}`Thm:Fouriertr:Scaling` tells us that the Fourier transform of the moving signal has a peak at $\dfrac{\omega_0}{a}$, which is a higher number than $\omega_0$ since $0<a<1$. This means that the observer hears a higher pitch. Reversely, when the vehicle moves away, we consider $f(bt)$ for some $b>1$. In that case, the Fourier transform will have a peak at $\dfrac{\omega_0}{b}$, which gives a lower pitch than the original signal.
 
 Recall that the Fourier transform $\mathcal{F}(f)(\omega)$ is a measure of how much of a wave with angular frequency $\omega$ is contained in the signal $f$. Now if we consider the function $g(t)=f(2t)$, then the signal goes twice as fast. If we compare the graphs of $f$ and $g$, then we obtain the graph of $g$ by compressing the one of $f$ in the $t$-direction by a factor $2$. If the Fourier transform of $f$ has a peak at a certain value $\omega_0$, then the Fourier transform of $g$ will have a peak at $2\omega_0$. This suggests that the graph of the Fourier transform of $g$ will be obtained from the one of the Fourier transform of $f$ by *stretching* it by a factor $2$ in the $\omega$-direction. However, this not is the entire story, since the amplitude of the Fourier transform also changes. In fact, we obtain the following result[^Footnotedoppler].
 
@@ -474,7 +474,7 @@ $$
  \mathcal{F}(g(t))(\omega)=\mathcal{F}(f(t)+f(-t))(\omega)=\mathcal{F}(f(t))(\omega)+\mathcal{F}(f(-t))(\omega).
 $$
 
-For the Fourier tranform of $f(-t)$, we can use {prf:ref}`Thm:Fouriertr:Scaling` to obtain
+For the Fourier transform of $f(-t)$, we can use {prf:ref}`Thm:Fouriertr:Scaling` to obtain
 
 $$
  \mathcal{F}(f(-t))(\omega)=\frac{1}{|-1|}\mathcal{F}(f(t))\left(\frac{\omega}{-1}\right)=\mathcal{F}(f(t))(-\omega).
@@ -671,7 +671,7 @@ $$
 $$
 :::
 
-This means that the sometimes rather complicated operation of differentiation is nothing more than a mere multiplication on the Fourier side. Reversely, differentiation on the Fourier side of things should also give a multiplication in the time domain on account of duality. Indeed, we obtain the followin result.
+This means that the sometimes rather complicated operation of differentiation is nothing more than a mere multiplication on the Fourier side. Reversely, differentiation on the Fourier side of things should also give a multiplication in the time domain on account of duality. Indeed, we obtain the following result.
 
 ::::::{prf:theorem} Multiplication by $t$
 :label: Thm:Fouriertr:Multt
@@ -780,7 +780,7 @@ $$
  C=\hat{f}(0)=\int_{-\infty}^\infty e^{-at^2}\,dt.
 $$
 
-This remaining intgral is a standard integral and we find that
+This remaining integral is a standard integral and we find that
 
 $$
  C=\int_{-\infty}^\infty e^{-at^2}\,dt=\sqrt{\frac{\pi}{a}}.
@@ -867,7 +867,7 @@ $$
 
 ::::::
 
-As a final imporant property of the Fourier transform is that it conserves energy. This result is known as the **Plancherel theorem**, or sometimes as the **Parseval-Plancherel identity** or **Parseval's theorem** (though that one usually refers to a version of this result for *Fourier series*).  It is named after the Swiss mathematician [Michel Plancherel (1885-1967)](https://en.wikipedia.org/wiki/Michel_Plancherel), with the alternative names coming from the French mathematician [Marc-Antoine Parseval (1755-1836)](https://en.wikipedia.org/wiki/Marc-Antoine_Parseval).
+As a final important property of the Fourier transform is that it conserves energy. This result is known as the **Plancherel theorem**, or sometimes as the **Parseval-Plancherel identity** or **Parseval's theorem** (though that one usually refers to a version of this result for *Fourier series*).  It is named after the Swiss mathematician [Michel Plancherel (1885-1967)](https://en.wikipedia.org/wiki/Michel_Plancherel), with the alternative names coming from the French mathematician [Marc-Antoine Parseval (1755-1836)](https://en.wikipedia.org/wiki/Marc-Antoine_Parseval).
 
 ::::::{prf:theorem} Plancherel
 :label: Thm:Fouriertr:Plancherel
@@ -899,7 +899,7 @@ For any complex number $z$, we have $|z|^2=z\overline{z}$, where $\overline{z}$ 
 
 The interpretation of {prf:ref}`Thm:Fouriertr:Plancherel` is as follows. If the function $f$ represents a wave, then the integral $\displaystyle \int_{-\infty}^\infty |f(t)|^2\,dt$ represents the total energy contained in the wave. The theorem then states that we can obtain this energy by adding up the energies of the waves of differing frequencies, which is represented by $\displaystyle \int_{-\infty}^\infty |\hat{f}(\omega)|^2\,d\omega$.
 
-Perhaps suprisingly, we can use this result to evaluate complicated improper integrals.
+Perhaps surprisingly, we can use this result to evaluate complicated improper integrals.
 
 ::::::{prf:example} 
 :label: Ex:Fouriertr:Plancherel
@@ -1000,7 +1000,7 @@ $$
  (f\ast g)_{\mathrm{half}}(t)=\int_0^t f(t-\tau)g(\tau)\,d\tau=\int_0^t f(\tau)g(t-\tau)\,d\tau.
 $$
 
-We use the subscript $\mathrm{half}$ to distinguish between the two definitions of the convolution. While these definitions look different, they actually work very similar. Indeed, if we extend the functions $f$ and $g$ that are only defined on the halfline $[0,\infty)$ to the full real line by setting
+We use the subscript $\mathrm{half}$ to distinguish between the two definitions of the convolution. While these definitions look different, they actually work very similar. Indeed, if we extend the functions $f$ and $g$ that are only defined on the half-line $[0,\infty)$ to the full real line by setting
 
 $$
  f(t)=g(t)=0
@@ -1061,7 +1061,7 @@ $$
  (f\ast g)(t)=\int_{-\infty}^\infty f(\tau)g(t-\tau)\,d\tau=\int_{-1}^{1}1\,d\tau=2.
 $$
 
-Then, if we increase $t$ even further, the situation will change again when $t-2$ becomes $-1$, i.e at $t=1$. In that case, we obtain the situation on the right half of {numref}`Fig:FourierTrs:Convothert` and we evaluate
+Then, if we increase $t$ even further, the situation will change again when $t-2$ becomes $-1$, i.e. at $t=1$. In that case, we obtain the situation on the right half of {numref}`Fig:FourierTrs:Convothert` and we evaluate
 
 $$
  (f\ast g)(t)=\int_{-\infty}^\infty f(\tau)g(t-\tau)\,d\tau=\int_{t-2}^{1}1\,d\tau=3-t.
@@ -1254,7 +1254,7 @@ $$
 Since the Fourier transform does not change, we must have $\delta\ast f=f$.
 :::
 
-Recall that the Fourier transform is used mostly for finding which frequencies are present in a signal. This means that it is very natural to consider the fourier transforms of the sine and cosine functions. Since we have not covered these yet, let us quickly do so (we will see why we postponed them below).
+Recall that the Fourier transform is used mostly for finding which frequencies are present in a signal. This means that it is very natural to consider the Fourier transforms of the sine and cosine functions. Since we have not covered these yet, let us quickly do so (we will see why we postponed them below).
 
 ::::::{prf:example} Sine and cosine
 :label: Thm:Fouriertr:Sincos
@@ -1304,7 +1304,7 @@ This means that the Fourier transforms of $g(t)=\cos(at)$ and $h(t)=\sin(at)$ bo
 
 [^Footnotetimeint]: What we do mathematically when we only consider a time interval of the form $[a,b]$, is multiply the signal by the block function $u_b(t)-u_a(t)$. Since a product in the time domain corresponds to a convolution in the Fourier domain, this corresponds to taking a convolution with a sinc-function in the Fourier domain.
 
-It is important to note that we use the full time range from $-\infty$ to $\infty$ to determine the Fourier transform. In practice however, it is impossible to measure a signal on an infinite time range. So what we usually do, is measure the signal on a finite time interval and take the Fourier transform of that piece of signal. If we measure long enough (to at least have caputered a full period of the wave), the Fourier transforms of the original signal and the measured signal will be similar, though not entirely the same.[^Footnotetimeint]
+It is important to note that we use the full time range from $-\infty$ to $\infty$ to determine the Fourier transform. In practice however, it is impossible to measure a signal on an infinite time range. So what we usually do, is measure the signal on a finite time interval and take the Fourier transform of that piece of signal. If we measure long enough (to at least have captured a full period of the wave), the Fourier transforms of the original signal and the measured signal will be similar, though not entirely the same.[^Footnotetimeint]
 
 For instance, consider the function $f(t)=\cos(t)$. According to {prf:ref}`Thm:Fouriertr:Sincos`, its Fourier transform has peaks at $\omega=-1$ and $\omega=1$, while it $0$ everywhere else. Suppose we measure this signal from $t=-10\pi$ to $t=10\pi$ (we choose a symmetric integral for convenience). This means that we are actually looking at the Fourier transform of the signal
 
@@ -1405,7 +1405,7 @@ $$
  (i\omega)^2+2(i\omega)\hat{y}+5\hat{y}=0.
 $$
 
-The most important observation here is that this is no longer a differnetial equation for $\hat{y}$, as there are no derivatives anymore. As such, it seems much easier to solve this equation in the Fourier domain, so let us try to do this. We first rewrite the equation to
+The most important observation here is that this is no longer a differential equation for $\hat{y}$, as there are no derivatives anymore. As such, it seems much easier to solve this equation in the Fourier domain, so let us try to do this. We first rewrite the equation to
 
 $$
  \left(-\omega^2+2i\omega+5\right)\hat{y}=0.
