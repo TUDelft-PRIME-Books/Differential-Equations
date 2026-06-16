@@ -10,7 +10,7 @@ This page reuses content from {cite:t}`vdBult2025fouriertransform`.
 
 ## Introduction
 
-Consider a sound signal. If the sound signal consists of only one tone, then the signal can be modeled as a single (co)sine. If the signal consists of multiple tones, the corresponding functions are added together. Consider the following incoming signal $f(t)$, as shown in {numref}`Fig:FourierTrs:Introsignal`.
+Consider a sound signal. If the sound signal consists of only one tone, the signal can be modeled as a single (co)sine. If the signal consists of multiple tones, the corresponding functions are added together. Consider the following incoming signal $f(t)$, as shown in {numref}`Fig:FourierTrs:Introsignal`.
 
 :::{figure} Images/Fig-FourierTrs-Introsignal.png
 :name: Fig:FourierTrs:Introsignal
@@ -20,7 +20,7 @@ An incoming signal $f(t)$.
 
 [^FootnoteAudio]: The numbers in this function are chosen for mathematical convenience. An audio signal with a frequency of $3$ or $4$ Hz is not audible. In addition, an audio signal does not oscillate around $0$ in practice. 
 
-[^Footnoteplotting]: The graphs look the way we do because $\left|e^{-i\omega t}\right|=1$, so if we just consider $e^{-i\omega t}$ we follow the circle with radius $1$ in the complex plane in clockwise direction. $\omega$ describes how fast we travel through this circle. Since $f$ is real, it only changes the modulus of the complex number $f(t)e^{-i\omega t}$, so we still rotate with the same speed, but the amplitude changes as $f(t)$ changes.
+[^Footnoteplotting]: The graphs look the way we do because $\left|e^{-i\omega t}\right|=1$, so if we just consider $e^{-i\omega t}$ we follow the circle with radius $1$ in the complex plane in clockwise direction. $\omega$ describes how fast we travel through this circle. Since $f$ is real-valued, it only changes the modulus of the complex number $f(t)e^{-i\omega t}$, so we still rotate with the same speed, but the amplitude changes as $f(t)$ changes.
 
 [^Footnotecentermass]: You can imagine this average value by thinking of the curve as a wire with a constant mass density. The average value is then the location of the center of mass of the wire, divided by the length of the time interval (which is $10\pi$ in this case).
 
@@ -31,7 +31,7 @@ An incoming signal $f(t)$.
 
 This signal is the graph of the function $f(t)=\sin(3t)+\sin(4t)$ for $0\leq t\leq 10\pi$, so we are dealing with the sum of a signal with angular frequency $3$ and one with angular frequence $4$.[^FootnoteAudio] However, if we did not know that, how could we find it out? It is rather hard to read this off from the graph directly and you can imagine this gets increasingly harder if more different frequencies are involved. The way to go here is to use the so-called **Fourier transform**[^FootnoteFourierseries].
 
-The idea of this Fourier transform is as follows. We first multiply the signal by the complex exponential $e^{-i\omega t}$. The $\omega$ in this exponential represents an arbitrary frequency, and it can be any positive (or even negative) real number. If we now plot the curve $f(t)e^{-i\omega t}$ with $0\leq t\leq 10\pi$ for various values of $\omega$, we see that usually obtain some pretty curves in the complex plane[^Footnoteplotting]. 
+The idea of this Fourier transform is as follows. We first multiply the signal by the complex exponential $e^{-i\omega t}$. The $\omega$ in this exponential represents an arbitrary frequency, and it can be any positive (or even negative) real number. As such, we can think of $e^{-\omega t}$ as a basic signal with frequency $\omega$. The main reason that we multiply $f$ with this signal, is that $f(t)e^{-i\omega t}$ will, in some sense, highlight the part of the signal $f$ that has frequency $\omega$. If we now plot the curve $f(t)e^{-i\omega t}$ with $0\leq t\leq 10\pi$ for various values of $\omega$, we see that usually obtain some pretty curves in the complex plane[^Footnoteplotting]. 
 
 :::::{grid} 2
 :gutter: 1
@@ -130,6 +130,7 @@ The real (blue) and imaginary (red) parts of the Fourier transform of the signal
 The modulus of the Fourier transform of the signal $f$. The modulus appears to be negative for some values of $\omega$, but this is a limitation of the graphing software.
 :::
 
+If we were to measure the signal on a longer time interval, we would obtain a similar plot of the Fourier transform. In that case, the peaks at the relevant frequencies would be higher, while the 'wiggles' in between the peaks would become smaller. If we were to consider a shorter time interval, this effect would be reversed.
 
 ## (Inverse) Fourier transform
 
